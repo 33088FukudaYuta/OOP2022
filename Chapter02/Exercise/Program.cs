@@ -8,7 +8,10 @@ namespace Exercise {
     class Program {
         static void Main(string[] args) {
 
-            Song song = new Song("タイトル", "アーティスト名", 20);
+            Song song1 = new Song("歌のタイトル1", "アーティスト名2", 20);
+
+            
+            
 
         }
     }
