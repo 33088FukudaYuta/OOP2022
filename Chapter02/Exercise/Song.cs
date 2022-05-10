@@ -12,5 +12,9 @@ namespace Exercise {
         public string ArtistName { get; set; }
 
         public int Length { get; set; }
+
+        public Song(string title,string ArtistName,int Length) {
+
+        }
     }
 }

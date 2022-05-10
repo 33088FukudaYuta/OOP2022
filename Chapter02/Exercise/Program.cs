@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace Exercise {
     class Program {
         static void Main(string[] args) {
+
+            Song song = new Song("タイトル", "アーティスト名", 20);
+
         }
     }
 }
