@@ -7,22 +7,29 @@ using System.Threading.Tasks;
 namespace Exercise03 {
     class Program {
         static void Main(string[] args) {
-            int num;
+            int select = 0;
+            var sales = new SalesCounter("sales.csv");
+
             Console.WriteLine("売上高の表示選択");
             Console.WriteLine("1店舗別");
             Console.WriteLine("2商品カテゴリー別");
             Console.Write(">");
-            num = int.Parse(Console.ReadLine());
-            var sales = new SalesCounter("sales.csv");
-            var amountPerStore = sales.GetPerStoreSales();
-            foreach (var obj in amountPerStore) {
-                Console.WriteLine("{0} {1}", obj.Key, obj.Value);
+
+            select = int.Parse(Console.ReadLine());
+            IDictionary<string, int> amountPerStore = null;
+            switch (select) {
+                case 1:
+                    amountPerStore = sales.GetPerStoreSales();
+                    break;
+
+                case 2:
+                    amountPerStore = sales.GetPerCategorySales();
+                    break;
+
             }
-            if (num == 1) {
-                sales.GetPerStoreSales();
-            }
-            if(num == 2) {
-                sales.GetPerCategorySales();
+           
+            foreach(var obj in amountPerStore) {
+                Console.WriteLine("{0},{1}", obj.Key, obj.Value);
             }
         }
     }

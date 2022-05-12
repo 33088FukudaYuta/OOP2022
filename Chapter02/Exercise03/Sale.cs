@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Exercise03 {
-    class Sale {
+    //売り上げクラス
+    public class Sale {
         //店舗名
-        public string ShopName { get; set; }
+        public string ShopName { get; set; } //プロパティ(自動実装プロパティ)
 
         //商品カテゴリー
-        public string ProductCategory { get; set; }
+        public string ProductCategory { get; set; } //プロパティ
 
         //売上高
-        public int Amount { get; set; }
+        public int Amount { get; set; } //プロパティ
+
+
     }
 }

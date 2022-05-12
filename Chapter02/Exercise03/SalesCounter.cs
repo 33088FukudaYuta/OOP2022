@@ -6,9 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Exercise03 {
-    class SalesCounter {
+    public class SalesCounter {
         private IEnumerable<Sale> _sales; //csvファイルから読み込んだデータ
 
+        //コンストラクタ
         public SalesCounter(string filePath) {
             _sales = ReadSales(filePath);
         }
@@ -26,7 +27,7 @@ namespace Exercise03 {
             return dict;
         }
 
-        //商品カテゴリー別売り上げを求める
+        //店舗別売り上げを求める
         public IDictionary<string, int> GetPerCategorySales() {
             var dict = new Dictionary<string, int>();
             foreach (var sale in _sales) {
