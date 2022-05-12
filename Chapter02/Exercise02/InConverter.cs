@@ -14,8 +14,8 @@ namespace Exercise02 {
         }
 
         //インチからメートルを求める(静的メソッド)
-        public static double ToMeter(int inti) {
-            return inti * ratio;
+        public static double ToMeter(int inch) {
+            return inch * ratio;
         }
     }
 }

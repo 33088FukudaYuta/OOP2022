@@ -17,17 +17,17 @@ namespace Exercise02 {
 
         //インチからメートルへの対応表を出力
         private static void PrintInToMeterList(int start, int stop) {
-            for (int inti = start; inti <= stop; inti++) {
-                double meter = InConverter.ToMeter(inti);
-                Console.WriteLine("{0} in = {1:0.0000} m", inti, meter);
+            for (int inch = start; inch <= stop; inch++) {
+                double meter = InConverter.ToMeter(inch);
+                Console.WriteLine("{0} in = {1:0.0000} m", inch, meter);
             }
         }
 
         //メートルからインチへの対応表を出力
         private static void PrintMeterToInList(int start, int stop) {
             for (int meter = 1; meter <= 10; meter++) {
-                double inti = InConverter.FromMeter(meter);
-                Console.WriteLine("{0} m = {1:0.0000} in", meter, inti);
+                double inch = InConverter.FromMeter(meter);
+                Console.WriteLine("{0} m = {1:0.0000} in", meter, inch);
             }
         }
     }
