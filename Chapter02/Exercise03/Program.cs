@@ -10,25 +10,32 @@ namespace Exercise03 {
             int select = 0;
             var sales = new SalesCounter("sales.csv");
 
-            Console.WriteLine("売上高の表示選択");
-            Console.WriteLine("1店舗別");
-            Console.WriteLine("2商品カテゴリー別");
-            Console.Write(">");
+            //IDictionary<string, int> amountPerStore = null;
 
-            select = int.Parse(Console.ReadLine());
-            IDictionary<string, int> amountPerStore = null;
-            switch (select) {
-                case 1:
-                    amountPerStore = sales.GetPerStoreSales();
-                    break;
+            while (true) {
+                Console.WriteLine("売上高の表示選択");
+                Console.WriteLine("1.店舗別");
+                Console.WriteLine("2.商品カテゴリー別");
+                Console.Write(">");
 
-                case 2:
-                    amountPerStore = sales.GetPerCategorySales();
-                    break;
+                select = int.Parse(Console.ReadLine());
+                
+                switch (select) {
+                    case 1:
+                        OutPut(sales.GetPerStoreSales());
+                        break;
 
+                    case 2:
+                        OutPut(sales.GetPerCategorySales());
+                        break;
+
+                    case 999:
+                        return;
+                }
             }
-           
-            foreach(var obj in amountPerStore) {
+        }
+        private static void OutPut(IDictionary<string, int> amountPerStore) {
+            foreach (var obj in amountPerStore) {
                 Console.WriteLine("{0},{1}", obj.Key, obj.Value);
             }
         }
