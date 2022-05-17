@@ -11,16 +11,14 @@ namespace Section01 {
                "Tokyo", "New Delhi", "Bangkok", "London", "Paris", "Berlin", "Canberra", "Hong Kong",
             };
 
-            var exists = list.Exists(s => s[0] == 'A');
-            Console.WriteLine(exists);
+            var lowerList = list.ConvertAll(s => s.ToLower());
+            lowerList.ForEach(s => Console.WriteLine(s));
 
-            var names = list.FindAll(s => s.Length <= 5);
-            names.ForEach(s => Console.WriteLine(s));
 
 
             /*foreach(var s in names) {
                 Console.WriteLine(s);
             }*/
-        }   
+        }
     }
 }
