@@ -17,11 +17,11 @@ namespace Exercise02 {
 
             //4.2.1
             var ymCollection = new YearMonth[] {
-                new YearMonth(1980,6),
-                new YearMonth(1990,7),
-                new YearMonth(2000,6),
-                new YearMonth(2010,5),
-                new YearMonth(2020,12),//P103
+                new YearMonth(1896,8),
+                new YearMonth(1900,7),
+                new YearMonth(1904,6),
+                new YearMonth(2015,5),
+                new YearMonth(2020,11),//P103
             };
 
             //4.2.2
@@ -40,9 +40,13 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_6(YearMonth[] ymCollection) {
-            foreach(var ym in ymCollection.OrderByDescending(ym => ym.Year)) {
-                Console.WriteLine(ym);
+            //①月で昇順に出力 ②偶数年のみ昇順に出力 ③うるう年のみを出力　④すべての年から12月に一番近い月を出力
+            foreach (var ym in ymCollection.Where(ym => DateTime.IsLeapYear(ym.Year))) {
+                    Console.WriteLine(ym);
             }
+
+            var data = ymCollection.Max(ym => ym.Month);
+            Console.WriteLine(data);
         }
 
         //4.2.3
