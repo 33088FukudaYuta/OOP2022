@@ -15,7 +15,7 @@ namespace Exercise01 {
             Console.WriteLine("文字列２を入力");
             var inputstring2 = Console.ReadLine();
 
-            if(string.Compare(inputstring1,inputstring2,true) == 0) {
+            if (string.Compare(inputstring1, inputstring2, ignoreCase: true) == 0) {
                 Console.WriteLine("一致しています");
             } else {
                 Console.WriteLine("一致していません");
