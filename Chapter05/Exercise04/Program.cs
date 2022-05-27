@@ -11,6 +11,12 @@ namespace Exercise04 {
 
 
             var msg = line.Split(';');
+
+            foreach (var item in msg) {
+                var str = item.Split('=');
+                var str1 = ToJapanese(str[0]);
+                Console.WriteLine(str1 + ":" + str[1]);
+            }
             
         }
 
