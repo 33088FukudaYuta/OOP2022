@@ -9,14 +9,14 @@ namespace Exercise02 {
         static void Main(string[] args) {
 
             //5.2
-            int num;
             Console.WriteLine("数字文字列の入力");
-            var inputstring3 = Console.ReadLine();
+            var line = Console.ReadLine();
+            int num;
 
-            if (int.TryParse(inputstring3, out num)) {
-                Console.WriteLine("{0:00,000}", num);
+            if (int.TryParse(line, out num)) {
+                Console.WriteLine("{0:#,#}", num);//整数への変換成功
             } else {
-                Console.WriteLine("変換に失敗しました");
+                Console.WriteLine("変換に失敗しました");//変換失敗
             }
         }
     }

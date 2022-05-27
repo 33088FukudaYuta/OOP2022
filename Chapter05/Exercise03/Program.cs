@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercise03 {
+    class Program {
+        static void Main(string[] args) {
+            var text = "Jackdaws love my big sphinx of quartz";
+
+            Exercise3_1(text);
+            Console.WriteLine("-----");
+
+            Exercise3_2(text);
+            Console.WriteLine("-----");
+
+            Exercise3_3(text);
+            Console.WriteLine("-----");
+
+            Exercise3_4(text);
+            Console.WriteLine("-----");
+
+            Exercise3_5(text);
+
+        }
+
+        private static void Exercise3_1(string text) {
+            var space = text.Count(c => c == ' ');
+            Console.WriteLine("空白数:{0}",space);
+        }
+
+        private static void Exercise3_2(string text) {
+            var replaced = text.Replace("big", "small");
+            Console.WriteLine(replaced);
+        }
+
+        private static void Exercise3_3(string text) {
+            //var count = text.Split(' ');
+            int count = text.Split(' ').Length;
+            Console.WriteLine("単語数：" + count);
+        }
+
+        private static void Exercise3_4(string text) {
+            var lines = text.Split(' ').Where(s => s.Length <= 4);
+            foreach (var line in lines) {
+                Console.WriteLine(line);
+            }
+        }
+
+        private static void Exercise3_5(string text) {
+            var sb = new StringBuilder();
+            var texts = text.Split(' ');
+
+            foreach (var msg in texts) {
+                sb.Append(msg + " ");
+            }
+            var str = sb.ToString();
+            Console.WriteLine(str.TrimEnd());
+        }
+    }
+}
