@@ -49,14 +49,18 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_5(string text) {
-            var sb = new StringBuilder();
-            var texts = text.Split(' ');
+            //var array = text.Split(' ').ToArry();
+            var array = text.Split(' ');
 
-            foreach (var msg in texts) {
-                sb.Append(msg + " ");
+            if(array.Length > 0) {
+                var sb = new StringBuilder(array[0]);
+                foreach (var word in array.Skip(1)) {
+                    sb.Append(' ');
+                    sb.Append(word);
+                }
+                var str = sb.ToString();
+                Console.WriteLine(str);
             }
-            var str = sb.ToString();
-            Console.WriteLine(str.TrimEnd());
         }
     }
 }

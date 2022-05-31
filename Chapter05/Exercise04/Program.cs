@@ -9,13 +9,9 @@ namespace Exercise04 {
         static void Main(string[] args) {
             var line = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
 
-
-            var msg = line.Split(';');
-
-            foreach (var item in msg) {
-                var str = item.Split('=');
-                var str1 = ToJapanese(str[0]);
-                Console.WriteLine(str1 + ":" + str[1]);
+            foreach (var text in line.Split(';')){
+                var str = text.Split('=');
+                Console.WriteLine("{0}:{1}",ToJapanese(str[0]),str[1]);
             }
             
         }
