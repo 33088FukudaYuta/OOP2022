@@ -26,21 +26,22 @@ namespace Exercise01 {
 
         private static void Exercise1_1(int[] numbers) {
             //最大値
-            var maxnumber = numbers.Max();
-            Console.WriteLine(maxnumber);
+            var maxnum = numbers.Max();
+            Console.WriteLine(maxnum);
         }
 
         private static void Exercise1_2(int[] numbers) {
             //最後から二つの要素取り出し
-            foreach (var lasttow in numbers.Skip(9).Take(2)) {
+            foreach (var lasttow in numbers.Skip(numbers.Length - 2)) {
                 Console.WriteLine(lasttow);
             }
         }
 
         private static void Exercise1_3(int[] numbers) {
-            //数値を文字列へ変換
-            foreach (var str in numbers.Select(s => s.ToString())){
-                Console.WriteLine(str);
+            //数値を文字列へ変換(Select)
+            var strs = numbers.ToString();
+            foreach (var str in strs){
+                Console.WriteLine(strs);
             }
         }
 
