@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace Sample0607 {
     public partial class Form1 : Form {
+
+        Random rand = new Random();//乱数オブジェクト生成
+
         public Form1() {
             InitializeComponent();
         }
 
-        private void button_Click(object sender, EventArgs e) {
-            if (nudNum2.Value != 0) {
-                nudAns.Value = nudNum1.Value / nudNum2.Value;
-                nudMod.Value = nudNum1.Value % nudNum2.Value;
-            } else {
-                MessageBox.Show("0で割り算できません！", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private void btRandom2_Click(object sender, EventArgs e) {
+
+            Number2.Value = rand.Next(minValue: (int)minNumber.Value, maxValue: (int)maxNumber.Value);
         }
     }
 }
