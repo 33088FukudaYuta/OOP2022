@@ -10,12 +10,37 @@ using System.Windows.Forms;
 
 namespace AddressBook {
     public partial class Form1 : Form {
+
+        //住所データ管理用リスト
+        BindingList<Person> listParsen = new BindingList<Person>();
+
         public Form1() {
             InitializeComponent();
+            dgvPersons.DataSource = listParsen;
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e) {
+        private void btPictureOpen_Click(object sender, EventArgs e) {
+            if(ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
+                pbPicture.Image = Image.FromFile(ofdFileOpenDialog.FileName);
+            }
+            
+        }
 
+        private void btAddPerson_Click(object sender, EventArgs e) {
+
+            Person newPerson = new Person { 
+            Name = tbName.Text,
+            MailAddress = tbMailAddress.Text,
+            Address = tbAddress.Text,
+            Company = tbCompany.Text,
+            Picture = pbPicture.Image,
+            };
+
+            listParsen.Add(newPerson);
+        }
+
+        private void btPictureClear_Click(object sender, EventArgs e) {
+            pbPicture.Image = null;
         }
     }
 }
