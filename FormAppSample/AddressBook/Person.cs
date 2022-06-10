@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace AddressBook {
     public class Person {
+        //プロパティ
         [System.ComponentModel.DisplayName("名前")]
         public String Name { get; set; }
         [System.ComponentModel.DisplayName("メールアドレス")]
