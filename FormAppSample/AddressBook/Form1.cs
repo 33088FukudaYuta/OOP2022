@@ -112,5 +112,31 @@ namespace AddressBook {
 
             cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
         }
+
+        //更新ボタンが押された時の処理
+        private void btUpdate_Click(object sender, EventArgs e) {
+
+            //インデックス取得
+            int rowindex = dgvPersons.CurrentCell.RowIndex;
+
+            
+            listParsen[rowindex].Name = tbName.Text;
+            listParsen[rowindex].MailAddress = tbMailAddress.Text;
+            listParsen[rowindex].Address = tbAddress.Text;
+            listParsen[rowindex].Company = tbCompany.Text;
+            listParsen[rowindex].Picture = pbPicture.Image;
+            listParsen[rowindex].listGroup = GetCheckBoxGroup();
+
+            dgvPersons.Refresh();//データグリッドビュー更新
+        }
+
+        //削除ボタンが押された時の処理
+        private void btdelete_Click(object sender, EventArgs e) {
+
+            //インデックス取得
+            int rowindex = dgvPersons.CurrentCell.RowIndex;
+
+            listParsen.RemoveAt(rowindex);
+        }
     }
 }
