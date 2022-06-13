@@ -82,16 +82,16 @@ namespace AddressBook {
             foreach (var group in listParsen[currentRow].listGroup) {
                 switch (group) {
                     case Person.GroupType.友人:
-                        cbFamily.Checked = true;
+                        cbFriend.Checked = true;
                         break;
                     case Person.GroupType.家族:
                         cbFamily.Checked = true;
                         break;
                     case Person.GroupType.仕事:
-                        cbFamily.Checked = true;
+                        cbWork.Checked = true;
                         break;
                     case Person.GroupType.その他:
-                        cbFamily.Checked = true;
+                        cbOther.Checked = true;
                         break;
                     default:
                         break;
