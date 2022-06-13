@@ -68,6 +68,9 @@ namespace AddressBook {
         //データグリッドビューをクリックしたときのイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
 
+            
+            if (dgvPersons.CurrentCell == null) return;
+
             //現在選択されているインデックスの取得
             int currentRow = dgvPersons.CurrentCell.RowIndex;
 
@@ -77,7 +80,7 @@ namespace AddressBook {
             tbCompany.Text = listParsen[currentRow].Company;
             pbPicture.Image = listParsen[currentRow].Picture;
 
-            all_clear();
+            all_clear();//グループチェックボックスを一旦初期化
 
             foreach (var group in listParsen[currentRow].listGroup) {
                 switch (group) {
@@ -98,11 +101,16 @@ namespace AddressBook {
                 }
             }            
         }
+
+        //グループチェックボックスオールクリア
         private void all_clear() {
-            cbFamily.Checked = false;
-            cbFriend.Checked = false;
-            cbWork.Checked = false;
-            cbOther.Checked = false;
+
+            //cbFamily.Checked = false;
+            //cbFriend.Checked = false;
+            //cbWork.Checked = false;
+            //cbOther.Checked = false;
+
+            cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
         }
     }
 }
