@@ -27,16 +27,25 @@ namespace AddressBook {
 
         private void btAddPerson_Click(object sender, EventArgs e) {
 
-            Person newPerson = new Person {
-                Name = tbName.Text,
-                MailAddress = tbMailAddress.Text,
-                Address = tbAddress.Text,
-                Company = tbCompany.Text,
-                Picture = pbPicture.Image,
-                listGroup = GetCheckBoxGroup(),
-            };
+            if(tbName.Text == "") {
+                MessageBox.Show("値が入力されていません", "エラー",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else {
+                Person newPerson = new Person {
+                    Name = tbName.Text,
+                    MailAddress = tbMailAddress.Text,
+                    Address = tbAddress.Text,
+                    Company = tbCompany.Text,
+                    Picture = pbPicture.Image,
+                    listGroup = GetCheckBoxGroup(),
+                };
+                listParsen.Add(newPerson);
 
-            listParsen.Add(newPerson);
+                if(listParsen.Count > 0) {
+                    btdelete.Enabled = true;
+                    btUpdate.Enabled = true;
+                }               
+            }
         }
 
         //チェックボックスにセットされている値をリストとして取り出す
@@ -57,7 +66,6 @@ namespace AddressBook {
             if (cbOther.Checked) {
                 listGroup.Add(Person.GroupType.その他);
             }
-
             return listGroup;
         }
 
@@ -104,12 +112,6 @@ namespace AddressBook {
 
         //グループチェックボックスオールクリア
         private void all_clear() {
-
-            //cbFamily.Checked = false;
-            //cbFriend.Checked = false;
-            //cbWork.Checked = false;
-            //cbOther.Checked = false;
-
             cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
         }
 
@@ -119,7 +121,6 @@ namespace AddressBook {
             //インデックス取得
             int rowindex = dgvPersons.CurrentCell.RowIndex;
 
-            
             listParsen[rowindex].Name = tbName.Text;
             listParsen[rowindex].MailAddress = tbMailAddress.Text;
             listParsen[rowindex].Address = tbAddress.Text;
@@ -136,7 +137,17 @@ namespace AddressBook {
             //インデックス取得
             int rowindex = dgvPersons.CurrentCell.RowIndex;
 
+            if(listParsen.Count() == 0) {
+                btdelete.Enabled = false;
+                btUpdate.Enabled = false;
+            }
             listParsen.RemoveAt(rowindex);
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+
+            btdelete.Enabled = false; //削除ボタンをマスク
+            btUpdate.Enabled = false; //更新ボタンをマスク
         }
     }
 }
