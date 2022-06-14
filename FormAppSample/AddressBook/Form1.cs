@@ -25,6 +25,7 @@ namespace AddressBook {
             }            
         }
 
+        //追加ボタンが押された時の処理
         private void btAddPerson_Click(object sender, EventArgs e) {
 
             if(tbName.Text == "") {
