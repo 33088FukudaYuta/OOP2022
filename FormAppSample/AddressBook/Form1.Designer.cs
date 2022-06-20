@@ -45,6 +45,9 @@ namespace AddressBook {
             this.btUpdate = new System.Windows.Forms.Button();
             this.btdelete = new System.Windows.Forms.Button();
             this.cbCompany = new System.Windows.Forms.ComboBox();
+            this.btOpen = new System.Windows.Forms.Button();
+            this.btSave = new System.Windows.Forms.Button();
+            this.sfdSaveDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.SuspendLayout();
@@ -104,12 +107,12 @@ namespace AddressBook {
             this.dgvPersons.AllowUserToAddRows = false;
             this.dgvPersons.AllowUserToDeleteRows = false;
             this.dgvPersons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPersons.Location = new System.Drawing.Point(18, 318);
+            this.dgvPersons.Location = new System.Drawing.Point(77, 318);
             this.dgvPersons.MultiSelect = false;
             this.dgvPersons.Name = "dgvPersons";
             this.dgvPersons.RowTemplate.Height = 21;
             this.dgvPersons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPersons.Size = new System.Drawing.Size(729, 201);
+            this.dgvPersons.Size = new System.Drawing.Size(670, 201);
             this.dgvPersons.TabIndex = 1;
             this.dgvPersons.Click += new System.EventHandler(this.dgvPersons_Click);
             // 
@@ -188,7 +191,7 @@ namespace AddressBook {
             this.btAddPerson.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btAddPerson.Location = new System.Drawing.Point(519, 235);
             this.btAddPerson.Name = "btAddPerson";
-            this.btAddPerson.Size = new System.Drawing.Size(45, 57);
+            this.btAddPerson.Size = new System.Drawing.Size(48, 57);
             this.btAddPerson.TabIndex = 4;
             this.btAddPerson.Text = "追加";
             this.btAddPerson.UseVisualStyleBackColor = true;
@@ -259,6 +262,28 @@ namespace AddressBook {
             this.cbCompany.Size = new System.Drawing.Size(303, 35);
             this.cbCompany.TabIndex = 7;
             // 
+            // btOpen
+            // 
+            this.btOpen.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btOpen.Location = new System.Drawing.Point(12, 440);
+            this.btOpen.Name = "btOpen";
+            this.btOpen.Size = new System.Drawing.Size(59, 36);
+            this.btOpen.TabIndex = 4;
+            this.btOpen.Text = "開く...";
+            this.btOpen.UseVisualStyleBackColor = true;
+            this.btOpen.Click += new System.EventHandler(this.btOpen_Click);
+            // 
+            // btSave
+            // 
+            this.btSave.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btSave.Location = new System.Drawing.Point(12, 482);
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(59, 37);
+            this.btSave.TabIndex = 4;
+            this.btSave.Text = "保存...";
+            this.btSave.UseVisualStyleBackColor = true;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -271,6 +296,8 @@ namespace AddressBook {
             this.Controls.Add(this.pbPicture);
             this.Controls.Add(this.btdelete);
             this.Controls.Add(this.btUpdate);
+            this.Controls.Add(this.btSave);
+            this.Controls.Add(this.btOpen);
             this.Controls.Add(this.btAddPerson);
             this.Controls.Add(this.cbOther);
             this.Controls.Add(this.cbWork);
@@ -318,6 +345,9 @@ namespace AddressBook {
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btdelete;
         private System.Windows.Forms.ComboBox cbCompany;
+        private System.Windows.Forms.Button btOpen;
+        private System.Windows.Forms.Button btSave;
+        private System.Windows.Forms.SaveFileDialog sfdSaveDialog;
     }
 }
 
