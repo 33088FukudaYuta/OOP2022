@@ -28,15 +28,17 @@ namespace AddressBook {
         //追加ボタンが押された時の処理
         private void btAddPerson_Click(object sender, EventArgs e) {
 
-            if(tbName.Text == "") {
-                MessageBox.Show("値が入力されていません", "エラー",
+            //氏名が未入力なら登録しない
+            if(String.IsNullOrWhiteSpace(tbName.Text)) {
+                MessageBox.Show("氏名が入力されていません", "エラー",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             } else {
                 Person newPerson = new Person {
                     Name = tbName.Text,
                     MailAddress = tbMailAddress.Text,
                     Address = tbAddress.Text,
-                    Company = tbCompany.Text,
+                    Company = cbCompany.Text,
                     Picture = pbPicture.Image,
                     listGroup = GetCheckBoxGroup(),
                 };
@@ -45,7 +47,17 @@ namespace AddressBook {
                 if(listParsen.Count > 0) {
                     btdelete.Enabled = true;
                     btUpdate.Enabled = true;
-                }               
+                }
+
+                //コンボボックスに会社名を登録する(重複なし)
+                //if(cbCompany.Text != "" && cbCompany.Items.IndexOf(cbCompany.Text) == -1)
+                //cbCompany.Items.Add(cbCompany.Text);
+
+                if (!cbCompany.Items.Contains(cbCompany.Text)) {
+
+                    //まだ登録されていなければ登録処理
+                    cbCompany.Items.Add(cbCompany.Text);
+                }
             }
         }
 
@@ -86,7 +98,7 @@ namespace AddressBook {
             tbName.Text = listParsen[currentRow].Name;
             tbMailAddress.Text = listParsen[currentRow].MailAddress;
             tbAddress.Text = listParsen[currentRow].Address;
-            tbCompany.Text = listParsen[currentRow].Company;
+            cbCompany.Text = listParsen[currentRow].Company;
             pbPicture.Image = listParsen[currentRow].Picture;
 
             all_clear();//グループチェックボックスを一旦初期化
@@ -125,7 +137,7 @@ namespace AddressBook {
             listParsen[rowindex].Name = tbName.Text;
             listParsen[rowindex].MailAddress = tbMailAddress.Text;
             listParsen[rowindex].Address = tbAddress.Text;
-            listParsen[rowindex].Company = tbCompany.Text;
+            listParsen[rowindex].Company = cbCompany.Text;
             listParsen[rowindex].Picture = pbPicture.Image;
             listParsen[rowindex].listGroup = GetCheckBoxGroup();
 

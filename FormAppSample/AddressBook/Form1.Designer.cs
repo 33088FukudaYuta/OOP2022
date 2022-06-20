@@ -33,7 +33,6 @@ namespace AddressBook {
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbMailAddress = new System.Windows.Forms.TextBox();
             this.tbAddress = new System.Windows.Forms.TextBox();
-            this.tbCompany = new System.Windows.Forms.TextBox();
             this.cbFamily = new System.Windows.Forms.CheckBox();
             this.cbFriend = new System.Windows.Forms.CheckBox();
             this.cbWork = new System.Windows.Forms.CheckBox();
@@ -45,6 +44,7 @@ namespace AddressBook {
             this.ofdFileOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btdelete = new System.Windows.Forms.Button();
+            this.cbCompany = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +93,7 @@ namespace AddressBook {
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(72, 262);
+            this.label5.Location = new System.Drawing.Point(72, 269);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 27);
             this.label5.TabIndex = 0;
@@ -139,19 +139,11 @@ namespace AddressBook {
             this.tbAddress.Size = new System.Drawing.Size(303, 63);
             this.tbAddress.TabIndex = 2;
             // 
-            // tbCompany
-            // 
-            this.tbCompany.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbCompany.Location = new System.Drawing.Point(191, 213);
-            this.tbCompany.Name = "tbCompany";
-            this.tbCompany.Size = new System.Drawing.Size(303, 34);
-            this.tbCompany.TabIndex = 2;
-            // 
             // cbFamily
             // 
             this.cbFamily.AutoSize = true;
             this.cbFamily.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.cbFamily.Location = new System.Drawing.Point(191, 269);
+            this.cbFamily.Location = new System.Drawing.Point(191, 270);
             this.cbFamily.Name = "cbFamily";
             this.cbFamily.Size = new System.Drawing.Size(59, 20);
             this.cbFamily.TabIndex = 3;
@@ -162,7 +154,7 @@ namespace AddressBook {
             // 
             this.cbFriend.AutoSize = true;
             this.cbFriend.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.cbFriend.Location = new System.Drawing.Point(272, 269);
+            this.cbFriend.Location = new System.Drawing.Point(276, 270);
             this.cbFriend.Name = "cbFriend";
             this.cbFriend.Size = new System.Drawing.Size(59, 20);
             this.cbFriend.TabIndex = 3;
@@ -173,7 +165,7 @@ namespace AddressBook {
             // 
             this.cbWork.AutoSize = true;
             this.cbWork.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.cbWork.Location = new System.Drawing.Point(340, 269);
+            this.cbWork.Location = new System.Drawing.Point(350, 269);
             this.cbWork.Name = "cbWork";
             this.cbWork.Size = new System.Drawing.Size(59, 20);
             this.cbWork.TabIndex = 3;
@@ -184,7 +176,7 @@ namespace AddressBook {
             // 
             this.cbOther.AutoSize = true;
             this.cbOther.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.cbOther.Location = new System.Drawing.Point(405, 270);
+            this.cbOther.Location = new System.Drawing.Point(426, 269);
             this.cbOther.Name = "cbOther";
             this.cbOther.Size = new System.Drawing.Size(68, 20);
             this.cbOther.TabIndex = 3;
@@ -258,12 +250,22 @@ namespace AddressBook {
             this.btdelete.UseVisualStyleBackColor = true;
             this.btdelete.Click += new System.EventHandler(this.btdelete_Click);
             // 
+            // cbCompany
+            // 
+            this.cbCompany.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.cbCompany.FormattingEnabled = true;
+            this.cbCompany.Location = new System.Drawing.Point(191, 213);
+            this.cbCompany.Name = "cbCompany";
+            this.cbCompany.Size = new System.Drawing.Size(303, 35);
+            this.cbCompany.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(769, 532);
+            this.Controls.Add(this.cbCompany);
             this.Controls.Add(this.btPictureClear);
             this.Controls.Add(this.btPictureOpen);
             this.Controls.Add(this.pbPicture);
@@ -274,7 +276,6 @@ namespace AddressBook {
             this.Controls.Add(this.cbWork);
             this.Controls.Add(this.cbFriend);
             this.Controls.Add(this.cbFamily);
-            this.Controls.Add(this.tbCompany);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.tbMailAddress);
             this.Controls.Add(this.tbName);
@@ -305,7 +306,6 @@ namespace AddressBook {
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbMailAddress;
         private System.Windows.Forms.TextBox tbAddress;
-        private System.Windows.Forms.TextBox tbCompany;
         private System.Windows.Forms.CheckBox cbFamily;
         private System.Windows.Forms.CheckBox cbFriend;
         private System.Windows.Forms.CheckBox cbWork;
@@ -317,6 +317,7 @@ namespace AddressBook {
         private System.Windows.Forms.OpenFileDialog ofdFileOpenDialog;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btdelete;
+        private System.Windows.Forms.ComboBox cbCompany;
     }
 }
 
