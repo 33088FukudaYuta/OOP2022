@@ -44,6 +44,8 @@ namespace AddressBook {
                     Picture = pbPicture.Image,
                     listGroup = GetCheckBoxGroup(),
                     Registration = dtpRegistDate.Value,
+                    TelNumber = tbTelNumber.Text,
+                    KindNumber = GetRadioButtonGroup(),
                 };
                 listParsen.Add(newPerson);
 
@@ -82,6 +84,13 @@ namespace AddressBook {
             }
             return listGroup;
         }
+        private Person.KindNumberType GetRadioButtonGroup() {
+            if (rdHome.Checked) {
+                return Person.KindNumberType.自宅;
+            } else {
+                return Person.KindNumberType.携帯;
+            }
+        } 
 
         private void btPictureClear_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
@@ -102,7 +111,7 @@ namespace AddressBook {
             pbPicture.Image = listParsen[currentRow].Picture;
             dtpRegistDate.Value = 
                 listParsen[currentRow].Registration.Year > 1900 ? listParsen[currentRow].Registration : DateTime.Today;
-
+            tbTelNumber.Text = listParsen[currentRow].TelNumber;
             all_clear();//グループチェックボックスを一旦初期化
 
             foreach (var group in listParsen[currentRow].listGroup) {
@@ -143,6 +152,8 @@ namespace AddressBook {
             listParsen[rowindex].Picture = pbPicture.Image;
             listParsen[rowindex].listGroup = GetCheckBoxGroup();
             listParsen[rowindex].Registration = dtpRegistDate.Value;
+            listParsen[rowindex].KindNumber = GetRadioButtonGroup();
+            listParsen[rowindex].TelNumber = tbTelNumber.Text;
 
             dgvPersons.Refresh();//データグリッドビュー更新
         }
@@ -163,6 +174,8 @@ namespace AddressBook {
 
         private void Form1_Load(object sender, EventArgs e) {
             EnabledCheck();//マスク処理呼び出し
+            //奇数行
+            dgvPersons.AlternatingRowsDefaultCellStyle.BackColor = Color.Gray;
         }
 
         //保存ボタンのイベントハンドラ
