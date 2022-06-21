@@ -188,12 +188,14 @@ namespace AddressBook {
                         //逆シリアル化して読み込む
                         listParsen = (BindingList<Person>)bf.Deserialize(fs);
                         dgvPersons.DataSource = null;
-                        dgvPersons.DataSource = listParsen;                      
+                        dgvPersons.DataSource = listParsen;
+                        cbCompany.Items.Clear();
                     }
                 }
                 catch (Exception ex) {
                     MessageBox.Show(ex.Message);
                 }
+                //コンボボックスへ登録
                 foreach (var item in listParsen) {
                     setCbCompany(item.Company);//存在する会社を登録
                 }
