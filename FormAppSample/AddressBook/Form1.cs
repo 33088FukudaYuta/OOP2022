@@ -46,10 +46,7 @@ namespace AddressBook {
                 };
                 listParsen.Add(newPerson);
 
-                if (listParsen.Count > 0) {
-                    btdelete.Enabled = true;
-                    btUpdate.Enabled = true;
-                }
+                EnabledCheck();
 
                 //コンボボックスに会社名を登録する(重複なし)
                 setCbCompany(cbCompany.Text);
@@ -57,14 +54,10 @@ namespace AddressBook {
         }
 
         private void setCbCompany(string company) {
-            
-            //if(cbCompany.Text != "" && cbCompany.Items.IndexOf(cbCompany.Text) == -1)
-            //cbCompany.Items.Add(cbCompany.Text);
-
-            if (!cbCompany.Items.Contains(company)) {
+            if (!cbCompany.Items.Contains(company)){
 
                 //まだ登録されていなければ登録処理
-                cbCompany.Items.Add(cbCompany.Text);
+                cbCompany.Items.Add(company);
             }
         }
 
@@ -95,8 +88,7 @@ namespace AddressBook {
 
         //データグリッドビューをクリックしたときのイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
-
-            
+           
             if (dgvPersons.CurrentCell == null) return;
 
             //現在選択されているインデックスの取得
@@ -156,18 +148,17 @@ namespace AddressBook {
 
             //インデックス取得
             int rowindex = dgvPersons.CurrentCell.RowIndex;
-
-            if(listParsen.Count() == 0) {
-                btdelete.Enabled = false;
-                btUpdate.Enabled = false;
-            }
             listParsen.RemoveAt(rowindex);
+            EnabledCheck();//マスク処理呼び出し
+        }
+
+        //更新・削除ボタンのマスク処理を行う(マスク判定を含む)
+        private void EnabledCheck() {
+            btDelete.Enabled = btDelete.Enabled = listParsen.Count() > 0 ? true : false;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-
-            btdelete.Enabled = false; //削除ボタンをマスク
-            btUpdate.Enabled = false; //更新ボタンをマスク
+            EnabledCheck();//マスク処理呼び出し
         }
 
         //保存ボタンのイベントハンドラ
@@ -197,8 +188,7 @@ namespace AddressBook {
                         //逆シリアル化して読み込む
                         listParsen = (BindingList<Person>)bf.Deserialize(fs);
                         dgvPersons.DataSource = null;
-                        dgvPersons.DataSource = listParsen;
-                        
+                        dgvPersons.DataSource = listParsen;                      
                     }
                 }
                 catch (Exception ex) {
@@ -208,6 +198,7 @@ namespace AddressBook {
                     setCbCompany(item.Company);//存在する会社を登録
                 }
             }
+            EnabledCheck();//マスク処理呼び出し
         }
     }
 }
