@@ -49,7 +49,7 @@ namespace AddressBook {
             this.btSave = new System.Windows.Forms.Button();
             this.sfdSaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpRegistDate = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.SuspendLayout();
@@ -296,12 +296,12 @@ namespace AddressBook {
             this.label6.TabIndex = 8;
             this.label6.Text = "登録日";
             // 
-            // dateTimePicker1
+            // dtpRegistDate
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(547, 531);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 19);
-            this.dateTimePicker1.TabIndex = 9;
+            this.dtpRegistDate.Location = new System.Drawing.Point(547, 531);
+            this.dtpRegistDate.Name = "dtpRegistDate";
+            this.dtpRegistDate.Size = new System.Drawing.Size(200, 19);
+            this.dtpRegistDate.TabIndex = 9;
             // 
             // Form1
             // 
@@ -309,7 +309,7 @@ namespace AddressBook {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(769, 564);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpRegistDate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbCompany);
             this.Controls.Add(this.btPictureClear);
@@ -370,7 +370,7 @@ namespace AddressBook {
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.SaveFileDialog sfdSaveDialog;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpRegistDate;
     }
 }
 
