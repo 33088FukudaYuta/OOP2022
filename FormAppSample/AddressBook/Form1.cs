@@ -43,6 +43,7 @@ namespace AddressBook {
                     Company = cbCompany.Text,
                     Picture = pbPicture.Image,
                     listGroup = GetCheckBoxGroup(),
+                    Registration = dateTimePicker1.Value,
                 };
                 listParsen.Add(newPerson);
 
@@ -139,6 +140,7 @@ namespace AddressBook {
             listParsen[rowindex].Company = cbCompany.Text;
             listParsen[rowindex].Picture = pbPicture.Image;
             listParsen[rowindex].listGroup = GetCheckBoxGroup();
+            listParsen[rowindex].Registration = dateTimePicker1.Value;
 
             dgvPersons.Refresh();//データグリッドビュー更新
         }
