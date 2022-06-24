@@ -45,7 +45,7 @@ namespace AddressBook {
                     listGroup = GetCheckBoxGroup(),
                     Registration = dtpRegistDate.Value,
                     TelNumber = tbTelNumber.Text,
-                    KindNumber = GetRadioButtonGroup(),
+                    KindNumber = GetRadioButtonKindNumber(),
                 };
                 listParsen.Add(newPerson);
 
@@ -84,12 +84,18 @@ namespace AddressBook {
             }
             return listGroup;
         }
-        private Person.KindNumberType GetRadioButtonGroup() {
-            if (rdHome.Checked) {
-                return Person.KindNumberType.自宅;
-            } else {
-                return Person.KindNumberType.携帯;
+        private Person.KindNumberType GetRadioButtonKindNumber() {
+
+            //デフォルトの戻りを設定
+            Person.KindNumberType selectedKindNumber = Person.KindNumberType.その他;
+
+            if (rdHome.Checked) { //自宅にチェックがついている
+                selectedKindNumber = Person.KindNumberType.自宅;
             }
+            if (rbMobile.Checked) { //携帯にチェックがついている
+                selectedKindNumber = Person.KindNumberType.携帯;
+            }
+            return selectedKindNumber;
         } 
 
         private void btPictureClear_Click(object sender, EventArgs e) {
@@ -98,7 +104,7 @@ namespace AddressBook {
 
         //データグリッドビューをクリックしたときのイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
-           
+
             if (dgvPersons.CurrentCell == null) return;
 
             //現在選択されているインデックスの取得
@@ -109,9 +115,39 @@ namespace AddressBook {
             tbAddress.Text = listParsen[currentRow].Address;
             cbCompany.Text = listParsen[currentRow].Company;
             pbPicture.Image = listParsen[currentRow].Picture;
-            dtpRegistDate.Value = 
+            dtpRegistDate.Value =
                 listParsen[currentRow].Registration.Year > 1900 ? listParsen[currentRow].Registration : DateTime.Today;
             tbTelNumber.Text = listParsen[currentRow].TelNumber;
+
+            setGroupType(currentRow); //グループを設定
+            setKindNumberType(currentRow); //番号種別を設定
+        }
+
+        private void setKindNumberType(int currentRow) {
+            //番号種別チェック処理
+            if (listParsen[currentRow].KindNumber == Person.KindNumberType.自宅) {
+                rdHome.Checked = true;
+            }
+            if (listParsen[currentRow].KindNumber == Person.KindNumberType.携帯) {
+                rbMobile.Checked = true;
+            }
+
+            //switch (listParsen[currentRow].KindNumber) {
+            //    case Person.KindNumberType.自宅:
+            //        rdHome.Checked = true;
+            //        break;
+            //    case Person.KindNumberType.携帯:
+            //      rbMobile.Checked = true;
+            //        break;
+            //    case Person.KindNumberType.その他:
+            //        break;
+            //    default:
+            //        break;
+            //}
+        }
+
+        private void setGroupType(int currentRow) {
+
             all_clear();//グループチェックボックスを一旦初期化
 
             foreach (var group in listParsen[currentRow].listGroup) {
@@ -131,7 +167,7 @@ namespace AddressBook {
                     default:
                         break;
                 }
-            }            
+            }
         }
 
         //グループチェックボックスオールクリア
@@ -152,7 +188,7 @@ namespace AddressBook {
             listParsen[rowindex].Picture = pbPicture.Image;
             listParsen[rowindex].listGroup = GetCheckBoxGroup();
             listParsen[rowindex].Registration = dtpRegistDate.Value;
-            listParsen[rowindex].KindNumber = GetRadioButtonGroup();
+            listParsen[rowindex].KindNumber = GetRadioButtonKindNumber();
             listParsen[rowindex].TelNumber = tbTelNumber.Text;
 
             dgvPersons.Refresh();//データグリッドビュー更新
@@ -175,7 +211,7 @@ namespace AddressBook {
         private void Form1_Load(object sender, EventArgs e) {
             EnabledCheck();//マスク処理呼び出し
             //奇数行
-            dgvPersons.AlternatingRowsDefaultCellStyle.BackColor = Color.Gray;
+            dgvPersons.AlternatingRowsDefaultCellStyle.BackColor = Color.BlueViolet;
         }
 
         //保存ボタンのイベントハンドラ
