@@ -54,6 +54,8 @@ namespace RssReader {
             // 
             // lbRSSTitle
             // 
+            this.lbRSSTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbRSSTitle.FormattingEnabled = true;
             this.lbRSSTitle.ItemHeight = 12;
             this.lbRSSTitle.Location = new System.Drawing.Point(12, 52);
@@ -94,6 +96,9 @@ namespace RssReader {
             // 
             // wvBrowser
             // 
+            this.wvBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.wvBrowser.Location = new System.Drawing.Point(13, 158);
             this.wvBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.wvBrowser.Name = "wvBrowser";
