@@ -10,8 +10,8 @@ using System.Xml;
 namespace Section01 {
     class Program {
         static void Main(string[] args) {
-            //Serialize();
-            Deserialize();
+            Serialize();
+            //Deserialize();
         }
         //List 12-2
         //シリアル化
