@@ -253,6 +253,7 @@ namespace AddressBook {
             // btDelete
             // 
             this.btDelete.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btDelete.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btDelete.Location = new System.Drawing.Point(671, 235);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(48, 57);

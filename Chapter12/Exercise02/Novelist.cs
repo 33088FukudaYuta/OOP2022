@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 [XmlRoot("novelist")]
-[DataContract(Name ="novelist")]
+[DataContract(Name = "novelist")]
 public class Novelist {
 
     [XmlElement(ElementName = "name")]
