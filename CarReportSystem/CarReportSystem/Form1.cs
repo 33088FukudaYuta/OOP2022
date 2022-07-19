@@ -5,16 +5,24 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
-        int mode = 0;
+        //設定情報保存用オブジェクト
+        Settings setting = new Settings();
+
+        //カーレポート管理用リスト
         BindingList<CarReport> listCarReport = new BindingList<CarReport>();
+
+        int mode = 0;
 
         public Form1() {
             InitializeComponent();
@@ -62,6 +70,7 @@ namespace CarReportSystem {
             tbReport.Text = listCarReport[index].Report;
             pbPicture.Image = listCarReport[index].Picture;
         }
+
         private void SetMakerType(int index) {
 
             All_clear();
@@ -90,6 +99,7 @@ namespace CarReportSystem {
             }
 
         }
+
         private void SetCbCarName(string carname) {
             if (!cbCarName.Items.Contains(carname)) {
 
@@ -153,13 +163,9 @@ namespace CarReportSystem {
             btDelete.Enabled = btCorrect.Enabled = listCarReport.Count() > 0 ? true : false;
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-            EnableCheck();
-        }
-
         //修正ボタンが押された時の処理
         private void btCorrect_Click(object sender, EventArgs e) {
-
+            
             //インデックスの取得
             int index = dgvCarReport.CurrentCell.RowIndex;
 
@@ -174,6 +180,50 @@ namespace CarReportSystem {
             dgvCarReport.Refresh();
         }
 
+        private void btPictureOpen_Click(object sender, EventArgs e) {
+            if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
+                pbPicture.Image = Image.FromFile(ofdFileOpenDialog.FileName);
+            }
+        }
+
+        private void btPictureDelete_Click(object sender, EventArgs e) {
+            btPictureDelete.Image = null;
+        }
+
+        private void dgvCarReport_Click(object sender, EventArgs e) {
+
+            //データグリッドビューがnullの時
+            if (dgvCarReport.CurrentCell == null) return;
+
+            //現在選択されているインデックスの取得
+            int index = dgvCarReport.CurrentCell.RowIndex;
+
+            dtpRegistDate.Value = listCarReport[index].Date;
+            cbRecorder.Text = listCarReport[index].Auther;
+            SetMakerType(index);
+            cbCarName.Text = listCarReport[index].CarName;
+            tbReport.Text = listCarReport[index].Report;
+            pbPicture.Image = listCarReport[index].Picture;
+        }
+
+        //保存ボタンを押したときの処理
+        private void btSave_Click(object sender, EventArgs e) {
+            if (sfdSaveDialog.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリ形式でシリアル化
+                    var bf = new BinaryFormatter();
+
+                    using (FileStream fs = File.Open(sfdSaveDialog.FileName, FileMode.Create)) {
+                        bf.Serialize(fs, listCarReport);
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        //開くボタンを押したときの処理
         private void btOpen_Click(object sender, EventArgs e) {
             if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
                 try {
@@ -201,57 +251,36 @@ namespace CarReportSystem {
             EnableCheck();
         }
 
-        private void btPictureOpen_Click(object sender, EventArgs e) {
-            if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
-                pbPicture.Image = Image.FromFile(ofdFileOpenDialog.FileName);
-            }
-        }
-
-        private void btPictureDelete_Click(object sender, EventArgs e) {
-            btPictureDelete.Image = null;
-        }
-
-        private void dgvCarReport_Click(object sender, EventArgs e) {
-            //データグリッドビューがnullの時
-            if (dgvCarReport.CurrentCell == null) return;
-            //現在選択されているインデックスの取得
-            int index = dgvCarReport.CurrentCell.RowIndex;
-
-            dtpRegistDate.Value = listCarReport[index].Date;
-            cbRecorder.Text = listCarReport[index].Auther;
-            SetMakerType(index);
-            cbCarName.Text = listCarReport[index].CarName;
-            tbReport.Text = listCarReport[index].Report;
-            pbPicture.Image = listCarReport[index].Picture;
-        }
-
-        private void btSave_Click(object sender, EventArgs e) {
-            if (sfdSaveDialog.ShowDialog() == DialogResult.OK) {
-                try {
-                    //バイナリ形式でシリアル化
-                    var bf = new BinaryFormatter();
-
-                    using (FileStream fs = File.Open(sfdSaveDialog.FileName, FileMode.Create)) {
-                        bf.Serialize(fs, listCarReport);
-                    }
-                }
-                catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             //色設定ダイアログ表示
 
-            if(cdColorSelect.ShowDialog() == DialogResult.OK) {
+            if (cdColorSelect.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColorSelect.Color;
+                setting.MainFormColor = cdColorSelect.Color;
             }
         }
 
+        //ボタンを押すごとにPictureBoxのサイズ変更
         private void btPictureExchange_Click(object sender, EventArgs e) {
             pbPicture.SizeMode = (PictureBoxSizeMode)mode;
-            mode = mode > 4 ? ++mode : 0;
+            mode = mode < 4 ? ++mode : 0;
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルをシリアル化
+            using (var writer = XmlWriter.Create("setting.xml")) {
+                var serializer = new DataContractSerializer(setting.GetType());
+                serializer.WriteObject(writer, setting);
+            }
+        }
+        private void Form1_Load(object sender, EventArgs e) {
+            //設定ファイルを逆シリアル化して背景の色を設定
+            using (var reader = XmlReader.Create("setting.xml")) {
+                var serializer = new DataContractSerializer(typeof(Settings));
+                var setting = serializer.ReadObject(reader) as Settings;
+                BackColor = setting.MainFormColor;
+            }
+            EnableCheck();
         }
     }
 }
