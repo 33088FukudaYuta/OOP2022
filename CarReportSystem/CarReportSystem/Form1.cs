@@ -29,32 +29,29 @@ namespace CarReportSystem {
             dgvCarReport.DataSource = listCarReport;
         }
 
+        //終了ボタンが押された時の処理
         private void btEnd_Click(object sender, EventArgs e) {
 
             //アプリケーションの終了
             Application.Exit();
         }
 
+        //追加ボタンをクリックした時の処理
         private void btAdd_Click(object sender, EventArgs e) {
-            if (String.IsNullOrWhiteSpace(dtpRegistDate.Text)) {
-                MessageBox.Show("氏名が入力されていません", "エラー",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            } else {
-                CarReport newcarReport = new CarReport {
-                    Date = dtpRegistDate.Value,
-                    Auther = cbRecorder.Text,
-                    Maker = GetRadioButtonMakerType(),
-                    CarName = cbCarName.Text,
-                    Report = tbReport.Text,
-                    Picture = pbPicture.Image,
-                };
-                listCarReport.Add(newcarReport);
 
-                EnableCheck();
-                SetCbRecorder(cbRecorder.Text);
-                SetCbCarName(cbCarName.Text);
-            }
+            CarReport newcarReport = new CarReport {
+                Date = dtpRegistDate.Value,
+                Auther = cbRecorder.Text,
+                Maker = GetRadioButtonMakerType(),
+                CarName = cbCarName.Text,
+                Report = tbReport.Text,
+                Picture = pbPicture.Image,
+            };
+            listCarReport.Add(newcarReport);
+
+            EnableCheck();
+            SetCbRecorder(cbRecorder.Text);
+            SetCbCarName(cbCarName.Text);
         }
 
         //データグリッドビューをクリックしたときのイベントハンドラ
@@ -100,6 +97,7 @@ namespace CarReportSystem {
 
         }
 
+        //コンボボックスに社名を登録する(重複なし)
         private void SetCbCarName(string carname) {
             if (!cbCarName.Items.Contains(carname)) {
 
@@ -108,6 +106,7 @@ namespace CarReportSystem {
             }
         }
 
+        //コンボボックスに記録者を登録する(重複なし)
         private void SetCbRecorder(string recorder) {
             if (!cbRecorder.Items.Contains(recorder)) {
 
@@ -165,7 +164,7 @@ namespace CarReportSystem {
 
         //修正ボタンが押された時の処理
         private void btCorrect_Click(object sender, EventArgs e) {
-            
+
             //インデックスの取得
             int index = dgvCarReport.CurrentCell.RowIndex;
 
@@ -187,7 +186,7 @@ namespace CarReportSystem {
         }
 
         private void btPictureDelete_Click(object sender, EventArgs e) {
-            btPictureDelete.Image = null;
+            pbPicture.Image = null;
         }
 
         private void dgvCarReport_Click(object sender, EventArgs e) {
@@ -252,11 +251,11 @@ namespace CarReportSystem {
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            //色設定ダイアログ表示
 
+            //色設定ダイアログ表示
             if (cdColorSelect.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColorSelect.Color;
-                setting.MainFormColor = cdColorSelect.Color;
+                setting.MainFormColor = cdColorSelect.Color.ToArgb();
             }
         }
 
@@ -269,16 +268,16 @@ namespace CarReportSystem {
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルをシリアル化
             using (var writer = XmlWriter.Create("setting.xml")) {
-                var serializer = new DataContractSerializer(setting.GetType());
-                serializer.WriteObject(writer, setting);
+                var serializer = new XmlSerializer(setting.GetType());
+                serializer.Serialize(writer, setting);
             }
         }
         private void Form1_Load(object sender, EventArgs e) {
             //設定ファイルを逆シリアル化して背景の色を設定
             using (var reader = XmlReader.Create("setting.xml")) {
-                var serializer = new DataContractSerializer(typeof(Settings));
-                var setting = serializer.ReadObject(reader) as Settings;
-                BackColor = setting.MainFormColor;
+                var serializer = new XmlSerializer(typeof(Settings));
+                setting = serializer.Deserialize(reader) as Settings;
+                BackColor = Color.FromArgb(setting.MainFormColor);//ARGBからColorオブジェクトへ変換
             }
             EnableCheck();
         }
