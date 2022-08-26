@@ -16,8 +16,9 @@ using System.Xml.Serialization;
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
-        //設定情報保存用オブジェクト
-        Settings setting = new Settings();
+        //設定情報保存用オブジェクト(シングルトン)
+        //Singleton：インスタンスが1個しかできないことを保証するパターン
+        Settings setting = Settings.getInstance();
 
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReport = new BindingList<CarReport>();
@@ -39,6 +40,11 @@ namespace CarReportSystem {
         //追加ボタンをクリックした時の処理
         private void btAdd_Click(object sender, EventArgs e) {
 
+            if (String.IsNullOrWhiteSpace(cbRecorder.Text)) {
+                //氏名が未入力なら登録しない
+                MessageBox.Show("氏名が入力されていません");
+                return;
+            }
             CarReport newcarReport = new CarReport {
                 Date = dtpRegistDate.Value,
                 Auther = cbRecorder.Text,
@@ -274,12 +280,17 @@ namespace CarReportSystem {
         }
         private void Form1_Load(object sender, EventArgs e) {
             //設定ファイルを逆シリアル化して背景の色を設定
-            using (var reader = XmlReader.Create("setting.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                setting = serializer.Deserialize(reader) as Settings;
-                BackColor = Color.FromArgb(setting.MainFormColor);//ARGBからColorオブジェクトへ変換
+            try {
+                using (var reader = XmlReader.Create("setting.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    setting = serializer.Deserialize(reader) as Settings;
+                    BackColor = Color.FromArgb(setting.MainFormColor);//ARGBからColorオブジェクトへ変換
+                }
             }
-            EnableCheck();
+            catch (Exception) {
+            }
+            EnableCheck(); //マスク処理呼び出し
         }
     }
 }
+    
