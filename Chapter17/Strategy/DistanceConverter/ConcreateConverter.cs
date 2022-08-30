@@ -41,4 +41,22 @@ namespace DistanceConverter {
             return name.ToLower() == "yard" || name == UnitName;
         }
     }
+
+    public class MileConverter : ConverterBase {
+        protected override double Ratio => 1.609344;
+        public override string UnitName => "マイル";
+
+        public override bool IsMyUnit(string name) {
+            return name.ToLower() == "mile" || name == UnitName;
+        }
+    }
+
+    public class KmConverter : ConverterBase {
+        protected override double Ratio => 1;
+        public override string UnitName => "キロメートル";
+
+        public override bool IsMyUnit(string name) {
+            return name.ToLower() == "km" || name == UnitName;
+        }
+    }
 }
