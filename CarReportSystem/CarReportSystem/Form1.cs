@@ -191,10 +191,6 @@ namespace CarReportSystem {
             }
         }
 
-        private void btPictureDelete_Click(object sender, EventArgs e) {
-            pbPicture.Image = null;
-        }
-
         private void dgvCarReport_Click(object sender, EventArgs e) {
 
             //データグリッドビューがnullの時
@@ -278,6 +274,7 @@ namespace CarReportSystem {
                 serializer.Serialize(writer, setting);
             }
         }
+
         private void Form1_Load(object sender, EventArgs e) {
             //設定ファイルを逆シリアル化して背景の色を設定
             try {
@@ -290,6 +287,10 @@ namespace CarReportSystem {
             catch (Exception) {
             }
             EnableCheck(); //マスク処理呼び出し
+        }
+
+        private void btPictureDelete_Click_1(object sender, EventArgs e) {
+            pbPicture.Image = null;
         }
     }
 }
