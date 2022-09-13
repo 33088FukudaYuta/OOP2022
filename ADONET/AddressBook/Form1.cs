@@ -23,8 +23,7 @@ namespace AddressBook {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-                pbImage.SizeMode = PictureBoxSizeMode.Zoom;
-            
+                pbImage.SizeMode = PictureBoxSizeMode.Zoom;           
         }
 
         private void addressTableDataGridView_Click(object sender, EventArgs e) {
@@ -76,7 +75,7 @@ namespace AddressBook {
         private void btImageClear_Click(object sender, EventArgs e) {
             pbImage.Image = null;
         }
-
+        
         // バイト配列をImageオブジェクトに変換
         public static Image ByteArrayToImage(byte[] b) {
             ImageConverter imgconv = new ImageConverter();
