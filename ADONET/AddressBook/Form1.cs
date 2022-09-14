@@ -115,9 +115,6 @@ namespace AddressBook {
         }
 
         private void tbClear_Click(object sender, EventArgs e) {
-            //int index = addressTableDataGridView.CurrentCell.RowIndex;
-            //addressTableDataGridView.Rows.RemoveAt(index);
-
             tbName.Text = null;
             tbAddress.Text = null;
             tbTel.Text = null;
