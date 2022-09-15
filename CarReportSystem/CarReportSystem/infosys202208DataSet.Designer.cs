@@ -1048,7 +1048,7 @@ SELECT ID, Date, Author, Maker, CarName, Report, Image FROM CarReportDB WHERE (I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByNameSearch(infosys202208DataSet.CarReportDBDataTable dataTable, string date) {
+        public virtual int FillByName(infosys202208DataSet.CarReportDBDataTable dataTable, string date) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             if ((date == null)) {
                 throw new global::System.ArgumentNullException("date");

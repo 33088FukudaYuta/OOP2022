@@ -20,65 +20,35 @@ namespace CarReportSystem {
         //Singleton：インスタンスが1個しかできないことを保証するパターン
         Settings setting = Settings.getInstance();
 
-        //カーレポート管理用リスト
-        BindingList<CarReport> listCarReport = new BindingList<CarReport>();
-
         int mode = 0;
 
         public Form1() {
             InitializeComponent();
         }
 
-        private CarReport.MakerGroup GetRadioButtonMakerType() {
-
-            CarReport.MakerGroup selectedMakerType = CarReport.MakerGroup.その他;
+        private string GetRadioButtonMakerType() {
 
             if (rbHonda.Checked) {
-                selectedMakerType = CarReport.MakerGroup.ホンダ;
+                return "ホンダ";
             }
             if (rbNissan.Checked) {
-                selectedMakerType = CarReport.MakerGroup.日産;
+                return "日産";
             }
             if (rbSubaru.Checked) {
-                selectedMakerType = CarReport.MakerGroup.スバル;
+                return "スバル";
             }
             if (rbToyota.Checked) {
-                selectedMakerType = CarReport.MakerGroup.トヨタ;
+                return "トヨタ";
             }
             if (rbOutsideCar.Checked) {
-                selectedMakerType = CarReport.MakerGroup.外国車;
+                return "外国車";
             }
-            if (rbforeignCars.Checked) {
-                selectedMakerType = CarReport.MakerGroup.その他;
-            }
-            return selectedMakerType;
-        }
-
-        //削除ボタンが押された時の処理
-        private void btDelete_Click(object sender, EventArgs e) {
-
-            //データグリッドビューがnullの時
-            if (carReportDBDataGridView.CurrentRow == null) return;
-
-            //インデックスの取得
-            int index = carReportDBDataGridView.CurrentCell.RowIndex;
-
-            carReportDBDataGridView.Rows.RemoveAt(index);
-            EnableCheck();
-
-            //データセットの中をデータベースへ反映(保存処理)  
-            this.Validate();
-            this.carReportDBDataGridView.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.infosys202208DataSet);
+            return "その他";
         }
 
         //更新・削除ボタンのマスク処理を行う(マスク判定を含む)
         private void EnableCheck() {
-            if (carReportDBDataGridView.CurrentRow == null) {
-                return;
-            } else {
-                btDelete.Enabled = btUpdate.Enabled = carReportDBDataGridView.CurrentRow.Cells.Count > 0 ? true : false;
-            }
+            btDelete.Enabled = btUpdate.Enabled = infosys202208DataSet.CarReportDB.Rows.Count > 0 ? true : false;
         }
 
         private void btPictureOpen_Click(object sender, EventArgs e) {
@@ -121,7 +91,7 @@ namespace CarReportSystem {
                 }
             }
             catch (Exception) {
-        　   }
+            }
             EnableCheck(); //マスク処理呼び出し
         }
 
@@ -172,6 +142,24 @@ namespace CarReportSystem {
             carReportDBDataGridView.CurrentRow.Cells[4].Value = cbCarName.Text;
             carReportDBDataGridView.CurrentRow.Cells[5].Value = tbReport.Text;
             carReportDBDataGridView.CurrentRow.Cells[6].Value = ImageToByteArray(pbPicture.Image);
+
+            //データセットの中をデータベースへ反映(保存処理)  
+            this.Validate();
+            this.carReportDBDataGridView.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202208DataSet);
+        }
+
+        //削除ボタンが押された時の処理
+        private void btDelete_Click(object sender, EventArgs e) {
+
+            //データグリッドビューがnullの時
+            if (carReportDBDataGridView.CurrentRow == null) return;
+
+            //インデックスの取得
+            int index = carReportDBDataGridView.CurrentCell.RowIndex;
+
+            carReportDBDataGridView.Rows.RemoveAt(index);
+            EnableCheck();
 
             //データセットの中をデータベースへ反映(保存処理)  
             this.Validate();
@@ -245,13 +233,13 @@ namespace CarReportSystem {
             rbToyota.Checked = rbHonda.Checked = rbNissan.Checked = rbOutsideCar.Checked = rbSubaru.Checked = rbforeignCars.Checked = false;
             cbCarName.Text = null;
             tbReport.Text = null;
-            tbNameSearch = null;
+            tbNameSearch.Text = null;
         }
 
-        //名前検索
-        private void btNameSerach_Click(object sender, EventArgs e) {
-            this.carReportDBTableAdapter.FillByNameSearch(this.infosys202208DataSet.CarReportDB, tbNameSearch.Text);
+        private void btName_Click(object sender, EventArgs e) {
+            this.carReportDBTableAdapter.FillByName(this.infosys202208DataSet.CarReportDB, tbNameSearch.Text);
         }
     }
 }
-    
+
+

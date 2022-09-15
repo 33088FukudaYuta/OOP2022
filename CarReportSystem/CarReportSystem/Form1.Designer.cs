@@ -62,6 +62,8 @@ namespace CarReportSystem {
             this.btPictureExchange = new System.Windows.Forms.Button();
             this.carReportDBBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.carReportDBBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.infosys202208DataSet = new CarReportSystem.infosys202208DataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -74,9 +76,6 @@ namespace CarReportSystem {
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.carReportDBBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.carReportDBDataGridView = new System.Windows.Forms.DataGridView();
-            this.tbNameSearch = new System.Windows.Forms.TextBox();
-            this.btClear = new System.Windows.Forms.Button();
-            this.btNameSerach = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,17 +83,18 @@ namespace CarReportSystem {
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.carReportDBBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.infosys202208DataSet = new CarReportSystem.infosys202208DataSet();
+            this.tbNameSearch = new System.Windows.Forms.TextBox();
+            this.btClear = new System.Windows.Forms.Button();
+            this.btName = new System.Windows.Forms.Button();
             this.carReportDBTableAdapter = new CarReportSystem.infosys202208DataSetTableAdapters.CarReportDBTableAdapter();
             this.tableAdapterManager = new CarReportSystem.infosys202208DataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carReportDBBindingNavigator)).BeginInit();
             this.carReportDBBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carReportDBDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.carReportDBBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.infosys202208DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carReportDBDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -433,6 +433,16 @@ namespace CarReportSystem {
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新規追加";
             // 
+            // carReportDBBindingSource
+            // 
+            this.carReportDBBindingSource.DataMember = "CarReportDB";
+            this.carReportDBBindingSource.DataSource = this.infosys202208DataSet;
+            // 
+            // infosys202208DataSet
+            // 
+            this.infosys202208DataSet.DataSetName = "infosys202208DataSet";
+            this.infosys202208DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
@@ -543,36 +553,6 @@ namespace CarReportSystem {
             this.carReportDBDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.carReportDBDataGridView_DataError);
             this.carReportDBDataGridView.Click += new System.EventHandler(this.carReportDBDataGridView_Click);
             // 
-            // tbNameSearch
-            // 
-            this.tbNameSearch.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbNameSearch.Location = new System.Drawing.Point(106, 532);
-            this.tbNameSearch.Name = "tbNameSearch";
-            this.tbNameSearch.Size = new System.Drawing.Size(396, 31);
-            this.tbNameSearch.TabIndex = 32;
-            // 
-            // btClear
-            // 
-            this.btClear.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btClear.Location = new System.Drawing.Point(513, 533);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(98, 31);
-            this.btClear.TabIndex = 33;
-            this.btClear.Text = "クリア";
-            this.btClear.UseVisualStyleBackColor = true;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
-            // btNameSerach
-            // 
-            this.btNameSerach.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btNameSerach.Location = new System.Drawing.Point(12, 533);
-            this.btNameSerach.Name = "btNameSerach";
-            this.btNameSerach.Size = new System.Drawing.Size(89, 31);
-            this.btNameSerach.TabIndex = 34;
-            this.btNameSerach.Text = "名前検索";
-            this.btNameSerach.UseVisualStyleBackColor = true;
-            this.btNameSerach.Click += new System.EventHandler(this.btNameSerach_Click);
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
@@ -616,15 +596,35 @@ namespace CarReportSystem {
             this.dataGridViewImageColumn1.HeaderText = "Image";
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             // 
-            // carReportDBBindingSource
+            // tbNameSearch
             // 
-            this.carReportDBBindingSource.DataMember = "CarReportDB";
-            this.carReportDBBindingSource.DataSource = this.infosys202208DataSet;
+            this.tbNameSearch.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbNameSearch.Location = new System.Drawing.Point(106, 532);
+            this.tbNameSearch.Name = "tbNameSearch";
+            this.tbNameSearch.Size = new System.Drawing.Size(396, 31);
+            this.tbNameSearch.TabIndex = 32;
             // 
-            // infosys202208DataSet
+            // btClear
             // 
-            this.infosys202208DataSet.DataSetName = "infosys202208DataSet";
-            this.infosys202208DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.btClear.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btClear.Location = new System.Drawing.Point(513, 533);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(98, 31);
+            this.btClear.TabIndex = 33;
+            this.btClear.Text = "クリア";
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // btName
+            // 
+            this.btName.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btName.Location = new System.Drawing.Point(12, 533);
+            this.btName.Name = "btName";
+            this.btName.Size = new System.Drawing.Size(89, 31);
+            this.btName.TabIndex = 34;
+            this.btName.Text = "名前検索";
+            this.btName.UseVisualStyleBackColor = true;
+            this.btName.Click += new System.EventHandler(this.btName_Click);
             // 
             // carReportDBTableAdapter
             // 
@@ -642,7 +642,7 @@ namespace CarReportSystem {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(865, 576);
-            this.Controls.Add(this.btNameSerach);
+            this.Controls.Add(this.btName);
             this.Controls.Add(this.btClear);
             this.Controls.Add(this.tbNameSearch);
             this.Controls.Add(this.carReportDBDataGridView);
@@ -682,9 +682,9 @@ namespace CarReportSystem {
             ((System.ComponentModel.ISupportInitialize)(this.carReportDBBindingNavigator)).EndInit();
             this.carReportDBBindingNavigator.ResumeLayout(false);
             this.carReportDBBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.carReportDBDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.carReportDBBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.infosys202208DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.carReportDBDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -753,7 +753,7 @@ namespace CarReportSystem {
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.TextBox tbNameSearch;
         private System.Windows.Forms.Button btClear;
-        private System.Windows.Forms.Button btNameSerach;
+        private System.Windows.Forms.Button btName;
     }
 }
 
