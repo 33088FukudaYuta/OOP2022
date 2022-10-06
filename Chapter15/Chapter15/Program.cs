@@ -19,6 +19,7 @@ namespace Chapter15 {
                 year = int.Parse(Console.ReadLine());
             }
 
+            Console.WriteLine("");
             Console.Write("昇順：1 降順：2：");
             int sort = int.Parse(Console.ReadLine());
 
@@ -37,16 +38,24 @@ namespace Chapter15 {
             }
 
             Console.WriteLine();
-            var groups = Library.Books
-                                .Where(b => years.Contains(b.PublishedYear))
-                                .GroupBy(b => b.PublishedYear)
-                                .OrderBy(g => g.Key);
-            foreach (var g in groups) {
-                Console.WriteLine($"{g.Key}年");
-                foreach (var book in g) {
-                    var category = Library.Categories.Where(b => b.Id == book.CategoryId).First();
-                    Console.Write($"タイトル:{book.Title},価格:{book.Price},カテゴリ:{category.Name}");
-                }
+            var selected = Library.Books
+                .Where(y => years.Contains(y.PublishedYear))
+                .Join(Library.Categories, //結合する2番目のシーケンス
+                       book => book.CategoryId,　//対象シーケンスの結合キー
+                       category => category.Id,　//2番目のシーケンスの結合キー
+                       (book, category) => new {
+                           Title = book.Title,                           
+                           Category = category.Name,
+                           PublishedYear = book.PublishedYear,
+                           Price = book.Price
+                        }
+            );
+
+            foreach (var book in selected
+                                    .OrderByDescending(x => x.PublishedYear)
+                                    .ThenBy(c => c.Category))
+            {
+                Console.WriteLine($"{book.PublishedYear},{book.Title},{book.Category}");
             }
         }
     }
