@@ -128,6 +128,7 @@ namespace CarReportSystem {
             newRow[4] = cbCarName.Text;
             newRow[5] = tbReport.Text;
             newRow[6] = ImageToByteArray(pbPicture.Image);
+            EnableCheck();
             //データセットへ新しいレコードを追加
             infosys202208DataSet.CarReportDB.Rows.Add(newRow);
             //データベース更新
