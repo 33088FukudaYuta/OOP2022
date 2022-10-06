@@ -146,7 +146,7 @@ namespace CarReportSystem {
 
             //データセットの中をデータベースへ反映(保存処理)  
             this.Validate();
-            this.carReportDBDataGridView.EndEdit();
+            this.carReportDBBindingSource.EndEdit();
             this.tableAdapterManager.UpdateAll(this.infosys202208DataSet);
         }
 
