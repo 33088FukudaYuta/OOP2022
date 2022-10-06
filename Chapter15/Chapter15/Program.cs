@@ -44,19 +44,19 @@ namespace Chapter15 {
                        book => book.CategoryId,　//対象シーケンスの結合キー
                        category => category.Id,　//2番目のシーケンスの結合キー
                        (book, category) => new {
-                           Title = book.Title,                           
+                           Title = book.Title,
                            Category = category.Name,
                            PublishedYear = book.PublishedYear,
                            Price = book.Price
-                        }
+                       }
             );
 
             foreach (var book in selected
                                     .OrderByDescending(x => x.PublishedYear)
-                                    .ThenBy(c => c.Category))
-            {
+                                    .ThenBy(c => c.Category)) {
                 Console.WriteLine($"{book.PublishedYear},{book.Title},{book.Category}");
             }
+            Console.WriteLine($"金額の合計{selected.Sum(s => s.Price)}円");
         }
     }
 }
