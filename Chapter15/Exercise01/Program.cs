@@ -28,7 +28,7 @@ namespace Exercise01 {
             var max = Library.Books.Max(b => b.Price);
             var books = Library.Books.Where(b => b.Price == max);
             foreach (var book in books) {
-                Console.WriteLine($"発行年:{book.Price},カテゴリ:{book.CategoryId},価格:{book.Price}円,タイトル:{book.Title}");
+                Console.WriteLine(book);
             }
         }
 
@@ -52,14 +52,23 @@ namespace Exercise01 {
                           Price = book.Price,
                           Title = book.Title
                       }
-                      );
+                 );
             foreach (var book in selected) {
                 Console.WriteLine($"{book.PublishedYear} {book.Price}円 {book.Title} ({book.Category})");
             }
         }
 
         private static void Exercise1_5() {
-
+            var categorys = Library.Books
+                .Where(b => b.PublishedYear == 2016)
+                .Join(Library.Categories,
+                      book => book.CategoryId,
+                      category => category.Id,
+                      (book, category) => category.Name)
+                      .Distinct();
+            foreach (var book in categorys) {
+                Console.WriteLine(book);
+            }
         }
 
         private static void Exercise1_6() {
