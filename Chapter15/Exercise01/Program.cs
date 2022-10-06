@@ -25,11 +25,14 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2() {
-
+            var max = Library.Books.Max(b => b.Price);
+            var books = Library.Books.Where(b => b.Price == max);
+            foreach (var book in books) {
+                Console.WriteLine($"発行年:{book.Price},カテゴリ:{book.CategoryId},価格:{book.Price}円,タイトル:{book.Title}");
+            }
         }
 
         private static void Exercise1_3() {
-
         }
 
         private static void Exercise1_4() {
