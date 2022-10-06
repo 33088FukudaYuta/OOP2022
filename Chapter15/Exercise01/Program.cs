@@ -40,7 +40,22 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4() {
-
+            var selected = Library.Books
+                .OrderByDescending(b => b.PublishedYear)
+                .ThenByDescending(b => b.Price)
+                .Join(Library.Categories,
+                      book => book.CategoryId,
+                      category => category.Id,
+                      (book, category) => new {
+                          PublishedYear = book.PublishedYear,
+                          Category = category.Name,
+                          Price = book.Price,
+                          Title = book.Title
+                      }
+                      );
+            foreach (var book in selected) {
+                Console.WriteLine($"{book.PublishedYear} {book.Price}円 {book.Title} ({book.Category})");
+            }
         }
 
         private static void Exercise1_5() {
