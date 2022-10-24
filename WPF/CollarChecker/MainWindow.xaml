@@ -24,19 +24,19 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Slider x:Name="red_Slider" Grid.Row="1" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="red_Slider" Grid.Row="1" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
             <TextBox Name="red_Text" Grid.Row="1" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=red_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"/>
             
-            <Slider x:Name="green_Slider" Grid.Row="2" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="green_Slider" Grid.Row="2" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
             <TextBox Name="green_Text" Grid.Row="2" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=green_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"/>
             
-            <Slider x:Name="blue_Slider" Grid.Row="3" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True"/>
+            <Slider x:Name="blue_Slider" Grid.Row="3" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
             <TextBox Name="blue_Text" Grid.Row="3" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=blue_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"/>
             
             <TextBlock x:Name="red" Width="60" Margin="7" Grid.Row="1" Grid.Column="0" Text="R" FontSize="50"/>
             <TextBlock x:Name="green" Width="60" Margin="7" Grid.Row="2" Grid.Column="0" Text="G" FontSize="50"/>
             <TextBlock x:Name="blue" Width="60" Margin="7" Grid.Row="3" Grid.Column="0" Text="B" FontSize="50"/>
         </Grid>
-        <Label Grid.Column="0" Margin="15" Background="Blue"/>
+        <Label x:Name="ColorLabel" Grid.Column="0" Margin="15" Background="Beige"/>
     </Grid>
 </Window>

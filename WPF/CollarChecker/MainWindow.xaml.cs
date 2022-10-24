@@ -21,5 +21,9 @@ namespace CollarChecker {
         public MainWindow() {
             InitializeComponent();
         }
+
+        private void red_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            ColorLabel.Background = new SolidColorBrush(Color.FromRgb((byte)int.Parse(red_Text.Text), (byte)int.Parse(green_Text.Text), (byte)int.Parse(blue_Text.Text)));
+        }
     }
 }
