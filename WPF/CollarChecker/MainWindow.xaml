@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CollarChecker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1000" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -24,13 +25,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Slider x:Name="red_Slider" Grid.Row="1" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
-            <Slider x:Name="green_Slider" Grid.Row="2" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
-            <Slider x:Name="blue_Slider" Grid.Row="3" Grid.Column="1" Height="50" Margin="10" Maximum="255" IsSnapToTickEnabled="True" ValueChanged="red_Slider_ValueChanged"/>
+            <Slider x:Name="red_Slider" Grid.Row="1" Grid.Column="1" Height="50" Margin="10" Maximum="255" ValueChanged="red_Slider_ValueChanged" TickPlacement="BottomRight" TickFrequency="50" Foreground="Black"/>
+            <Slider x:Name="green_Slider" Grid.Row="2" Grid.Column="1" Height="50" Margin="10" Maximum="255" ValueChanged="red_Slider_ValueChanged" TickPlacement="BottomRight" TickFrequency="50" Foreground="Black"/>
+            <Slider x:Name="blue_Slider" Grid.Row="3" Grid.Column="1" Height="50" Margin="10" Maximum="255" ValueChanged="red_Slider_ValueChanged" TickPlacement="BottomRight" TickFrequency="50" Foreground="Black"/>
 
-            <TextBox Name="red_Text" Grid.Row="1" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=red_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}" KeyUp="red_Text_KeyUp"/>
-            <TextBox Name="green_Text" Grid.Row="2" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=green_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}" KeyUp="red_Text_KeyUp"/>
-            <TextBox Name="blue_Text" Grid.Row="3" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=blue_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged}" KeyUp="red_Text_KeyUp"/>
+            <TextBox Name="red_Text" Grid.Row="1" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=red_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:N0}}" KeyUp="red_Text_KeyUp"/>
+            <TextBox Name="green_Text" Grid.Row="2" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=green_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:N0}}" KeyUp="red_Text_KeyUp"/>
+            <TextBox Name="blue_Text" Grid.Row="3" Grid.Column="2" Width="70" Height="45" FontSize="30" Text="{Binding ElementName=blue_Slider,Path=Value,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:N0}}" KeyUp="red_Text_KeyUp"/>
 
             <TextBlock x:Name="red" Width="60" Margin="7" Grid.Row="1" Grid.Column="0" Text="R" FontSize="50"/>
             <TextBlock x:Name="green" Width="60" Margin="7" Grid.Row="2" Grid.Column="0" Text="G" FontSize="50"/>
@@ -51,7 +52,17 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-
-        <Label x:Name="ColorLabel" Grid.Column="0" Margin="15"/>
+        <Label x:Name="ColorLabel" Grid.Column="0" Width="280" Margin="15"/>
+        <Grid Grid.Column="2" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="STOCK" FontSize="20" Margin="10,5" Click="Button_Click"/>
+            <ListBox x:Name="stockList" Grid.Row="1"/>
+        </Grid>
     </Grid>
 </Window>

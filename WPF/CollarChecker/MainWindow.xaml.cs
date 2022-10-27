@@ -26,7 +26,7 @@ namespace CollarChecker {
         }
 
         private void red_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            ColorLabel.Background = new SolidColorBrush(Color.FromRgb((byte)int.Parse(red_Text.Text), (byte)int.Parse(green_Text.Text), (byte)int.Parse(blue_Text.Text)));
+            SetColor();
         }
 
         /// <summary>
@@ -41,7 +41,6 @@ namespace CollarChecker {
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var mycolor = (MyColor)((ComboBox)sender).SelectedItem;
             var color = mycolor.Color;
-            var name = mycolor.Name;
 
             red_Slider.Value = color.R;
             green_Slider.Value = color.G;
@@ -51,8 +50,25 @@ namespace CollarChecker {
         }
 
         private void red_Text_KeyUp(object sender, KeyEventArgs e) {
-            ColorLabel.Background = new SolidColorBrush(Color.FromRgb((byte)int.Parse(red_Text.Text), (byte)int.Parse(green_Text.Text), (byte)int.Parse(blue_Text.Text)));
+            SetColor();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            SetColor();
+        }
+
+        private void SetColor() {
+            var r = byte.Parse(red_Text.Text);
+            var g = byte.Parse(green_Text.Text);
+            var b = byte.Parse(blue_Text.Text);
+            ColorLabel.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
+
+            //ColorLabel.Background = new SolidColorBrush(Color.FromRgb((byte)int.Parse(red_Text.Text), (byte)int.Parse(green_Text.Text), (byte)int.Parse(blue_Text.Text)));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            List<MyColor> colors = new List<MyColor>();
+            //colors.Add();
         }
     }
 
