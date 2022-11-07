@@ -62,7 +62,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="STOCK" FontSize="20" Margin="10,5" Click="Button_Click"/>
-            <ListBox x:Name="stockList" Grid.Row="1"/>
+            <ListBox x:Name="stockList" Grid.Row="1" SelectionChanged="stockList_SelectionChanged"/>
         </Grid>
     </Grid>
 </Window>

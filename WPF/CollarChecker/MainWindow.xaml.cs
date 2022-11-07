@@ -19,9 +19,13 @@ namespace CollarChecker {
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window {
+
+        List<MyColor> stockMyColor = new List<MyColor>() { };
+
+        //MyColor myColor = new MyColor();
+
         public MainWindow() {
             InitializeComponent();
-
             DataContext = GetColorList();
         }
 
@@ -67,8 +71,31 @@ namespace CollarChecker {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            List<MyColor> colors = new List<MyColor>();
-            //colors.Add();
+
+            //ListBoxに表示する処理
+            stockList.Items.Add("R：" + red_Text.Text + "   G：" + green_Text.Text + "   B：" + blue_Text.Text);
+
+            MyColor stColor = new MyColor();
+            var r = byte.Parse(red_Text.Text);
+            var g = byte.Parse(green_Text.Text);
+            var b = byte.Parse(blue_Text.Text);
+
+            stColor.Color = Color.FromRgb(r, g, b);
+            //テキストボックスのRGB値から色名称があるかチェック
+            var colorName = ((IEnumerable<MyColor>)DataContext)
+                                .Where(c => c.Color.R == stColor.Color.R &&
+                                            c.Color.G == stColor.Color.G &&
+                                            c.Color.B == stColor.Color.B).FirstOrDefault();
+
+            stockList.Items.Insert(0,colorName?.Name ?? "R：" + red_Text.Text + "  G：" + green_Text.Text + "  B：" + blue_Text.Text);
+            stockMyColor.Add(stColor);
+        }
+
+        private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            red_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.R;
+            green_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.G;
+            blue_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.B;
+            SetColor();
         }
     }
 
