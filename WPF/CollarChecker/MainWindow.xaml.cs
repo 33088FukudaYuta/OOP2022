@@ -20,7 +20,7 @@ namespace CollarChecker {
     /// </summary>
     public partial class MainWindow : Window {
 
-        List<MyColor> stockMyColor = new List<MyColor>();
+        List<MyColor> colorList = new List<MyColor>();
 
         public MainWindow() {
             InitializeComponent();
@@ -82,21 +82,25 @@ namespace CollarChecker {
                                             c.Color.B == stColor.Color.B).FirstOrDefault();
 
             stockList.Items.Insert(0,colorName?.Name ?? "R：" + r + "  G：" + g + "  B：" + b);
-            stockMyColor.Insert(0,stColor);
+            colorList.Insert(0,stColor);
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (stockList.SelectedIndex >= 0) {
-                red_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.R;
-                green_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.G;
-                blue_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.B;
+            if (stockList.SelectedIndex == -1) return;
+
+                red_Slider.Value = colorList[stockList.SelectedIndex].Color.R;
+                green_Slider.Value = colorList[stockList.SelectedIndex].Color.G;
+                blue_Slider.Value = colorList[stockList.SelectedIndex].Color.B;
                 SetColor();
-            }            
         }
 
+        //DELETEボタンクリック
         private void Delete_Click(object sender, RoutedEventArgs e) {
-            if(stockList.SelectedIndex >= 0)
-            stockList.Items.RemoveAt(stockList.SelectedIndex);          
+            var delIndex = stockList.SelectedIndex;
+
+            if (delIndex == -1) return;
+                stockList.Items.RemoveAt(delIndex);
+                colorList.RemoveAt(delIndex);
         }
     }
 
