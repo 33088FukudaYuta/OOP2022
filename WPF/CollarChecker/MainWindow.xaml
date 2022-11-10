@@ -37,6 +37,8 @@
             <TextBlock x:Name="green" Width="60" Margin="7" Grid.Row="2" Grid.Column="0" Text="G" FontSize="50"/>
             <TextBlock x:Name="blue" Width="60" Margin="7" Grid.Row="3" Grid.Column="0" Text="B" FontSize="50"/>
 
+            <Button x:Name="Delete" Grid.Column="2" Grid.Row="4" Height="35" Margin="5" Content="Delete" FontSize="15" Click="Delete_Click"/>
+
             <ComboBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding}" SelectedValue="{Binding Color}" Margin="3,30,0,0" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="228" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

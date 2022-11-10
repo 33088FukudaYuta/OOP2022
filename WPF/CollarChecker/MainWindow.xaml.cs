@@ -22,8 +22,6 @@ namespace CollarChecker {
 
         List<MyColor> stockMyColor = new List<MyColor>();
 
-        MyColor myColor = new MyColor();
-
         public MainWindow() {
             InitializeComponent();
             DataContext = GetColorList();
@@ -43,14 +41,12 @@ namespace CollarChecker {
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var mycolor = (MyColor)((ComboBox)sender).SelectedItem;
-            var color = mycolor.Color;
 
-            red_Slider.Value = color.R;
-            green_Slider.Value = color.G;
-            blue_Slider.Value = color.B;
+            red_Slider.Value = ((MyColor)((ComboBox)sender).SelectedItem).Color.R;
+            green_Slider.Value = ((MyColor)((ComboBox)sender).SelectedItem).Color.G;
+            blue_Slider.Value = ((MyColor)((ComboBox)sender).SelectedItem).Color.B;
+            SetColor();
 
-            ColorLabel.Background = new SolidColorBrush(Color.FromRgb(color.R, color.G, color.B));
         }
 
         private void red_Text_KeyUp(object sender, KeyEventArgs e) {
@@ -61,6 +57,7 @@ namespace CollarChecker {
             SetColor();
         }
 
+        //テキストボックスの値を元に色を設定
         private void SetColor() {
             var r = byte.Parse(red_Text.Text);
             var g = byte.Parse(green_Text.Text);
@@ -84,15 +81,22 @@ namespace CollarChecker {
                                             c.Color.G == stColor.Color.G &&
                                             c.Color.B == stColor.Color.B).FirstOrDefault();
 
-            stockList.Items.Insert(0,colorName?.Name ?? "R：" + red_Text.Text + "  G：" + green_Text.Text + "  B：" + blue_Text.Text);
+            stockList.Items.Insert(0,colorName?.Name ?? "R：" + r + "  G：" + g + "  B：" + b);
             stockMyColor.Insert(0,stColor);
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            red_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.R;
-            green_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.G;
-            blue_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.B;
-            SetColor();
+            if (stockList.SelectedIndex >= 0) {
+                red_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.R;
+                green_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.G;
+                blue_Slider.Value = stockMyColor[stockList.SelectedIndex].Color.B;
+                SetColor();
+            }            
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e) {
+            if(stockList.SelectedIndex >= 0)
+            stockList.Items.RemoveAt(stockList.SelectedIndex);          
         }
     }
 
