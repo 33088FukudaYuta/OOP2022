@@ -20,9 +20,9 @@ namespace CollarChecker {
     /// </summary>
     public partial class MainWindow : Window {
 
-        List<MyColor> stockMyColor = new List<MyColor>() { };
+        List<MyColor> stockMyColor = new List<MyColor>();
 
-        //MyColor myColor = new MyColor();
+        MyColor myColor = new MyColor();
 
         public MainWindow() {
             InitializeComponent();
@@ -72,15 +72,12 @@ namespace CollarChecker {
 
         private void Button_Click(object sender, RoutedEventArgs e) {
 
-            //ListBoxに表示する処理
-            stockList.Items.Add("R：" + red_Text.Text + "   G：" + green_Text.Text + "   B：" + blue_Text.Text);
-
             MyColor stColor = new MyColor();
             var r = byte.Parse(red_Text.Text);
             var g = byte.Parse(green_Text.Text);
             var b = byte.Parse(blue_Text.Text);
-
             stColor.Color = Color.FromRgb(r, g, b);
+
             //テキストボックスのRGB値から色名称があるかチェック
             var colorName = ((IEnumerable<MyColor>)DataContext)
                                 .Where(c => c.Color.R == stColor.Color.R &&
@@ -88,7 +85,7 @@ namespace CollarChecker {
                                             c.Color.B == stColor.Color.B).FirstOrDefault();
 
             stockList.Items.Insert(0,colorName?.Name ?? "R：" + red_Text.Text + "  G：" + green_Text.Text + "  B：" + blue_Text.Text);
-            stockMyColor.Add(stColor);
+            stockMyColor.Insert(0,stColor);
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
