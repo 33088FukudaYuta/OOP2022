@@ -15,41 +15,46 @@ namespace WeatherApp {
     public partial class Form1 : Form {
 
         string areaCode;
-        string weatherCode;
+        string todayWeatherCode;
+        string tomorrowWeatherCode;
 
         public Form1() {
             InitializeComponent();
         }
 
+        /*https://qiita.com/michan06/items/48503631dd30275288f7
+
+          概況（三日間）
+          https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
+
+          概況（七日間）
+          https://www.jma.go.jp/bosai/forecast/data/overview_week/130000.json
+
+          エリアコード
+          https://zenn.dev/inoue2002/articles/2e07da8d0ca9ca
+
+          https://anko.education/apps/weather_api*/
+
+        //選択した地域の天気予報
+        //https://www.jma.go.jp/bosai/forecast/data/forecast/090000.json
+
+        //画像取得等
+        //https://qiita.com/michan06/items/48503631dd30275288f7
+
+        //天気予報の画像URL
+        //https://www.jma.go.jp/bosai/forecast/img/100.svg
+
+        //天気予報画像
+        //var pWeather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg");
+
+        //取得ボタン押したときの処理
         private void btWeatherGet_Click(object sender, EventArgs e) {
             var wc = new WebClient() {
                 Encoding = Encoding.UTF8
             };
 
-            /*https://qiita.com/michan06/items/48503631dd30275288f7
-
-              概況（三日間）
-              https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
-
-              概況（七日間）
-              https://www.jma.go.jp/bosai/forecast/data/overview_week/130000.json
-
-              エリアコード
-              https://zenn.dev/inoue2002/articles/2e07da8d0ca9ca
-
-              https://anko.education/apps/weather_api*/
-
-            //選択した地域の天気予報
-            //https://www.jma.go.jp/bosai/forecast/data/forecast/090000.json
-
-            //画像取得等
-            //https://qiita.com/michan06/items/48503631dd30275288f7
-
-            //天気予報の画像URL
-            //https://www.jma.go.jp/bosai/forecast/img/100.svg
-
-            int index = cbArea.SelectedIndex;
-            GetAreaCode(index);
+            //エリアコード取得
+            GetAreaCode(cbRegions.Text);
 
             //概況
             var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + areaCode + ".json");
@@ -58,263 +63,326 @@ namespace WeatherApp {
             //詳細
             var cString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + areaCode + ".json");
             var cjson = JsonConvert.DeserializeObject<Class1[]>(cString);
-            weatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[0];
-
-            //天気予報画像
-            //var pWeather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg");
-
+           　
             tbPresenter.Text = cjson[0].publishingOffice.ToString();
             tbrDate.Text = cjson[0].reportDatetime.ToString();
             tbArea.Text = djson.targetArea;
             tbTodayWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[0];
             tbTomorrowWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[1];
-            pbTodayWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg";
 
+            //今日、明日の最高気温、最低気温
+            tbTodayMaxTemp.Text = cjson[1].tempAverage.areas[0].max;
+            tbTodayMinTemp.Text = cjson[1].tempAverage.areas[0].min;
+            tbTrMaxTemp.Text = cjson[1].timeSeries[1].areas[0].tempsMax[1];
+            tbTrMinTemp.Text = cjson[1].timeSeries[1].areas[0].tempsMin[1];
+
+            //今日の天気マーク
+            todayWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[0];
+            pbTodayWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
+
+            //明日の天気マーク
+            tomorrowWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[1];
+            pbTomorrowWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + tomorrowWeatherCode + ".png";
+
+            //選択した地方の概況
             tbWeatherInfo.Text = djson.text;
         }
 
-        //選択された地方のエリアコード取得
-        private string GetAreaCode(int num) {
+        //選択された地方の地方(地域)名セット
+        private void SetCbRegionName(int num) {
+            cbRegions.Items.Clear();
             switch (num) {
                 case 0:
-                    areaCode = "011000";
+                    cbRegions.Items.Add("宗谷地方");//011000
+                    cbRegions.Items.Add("上川・留萌地方");//012000
+                    cbRegions.Items.Add("網走・北見・紋別地方");//013000
+                    cbRegions.Items.Add("釧路・根室地方");//014100
+                    cbRegions.Items.Add("胆振・日高地方");//015000
+                    cbRegions.Items.Add("石狩・空知・後志地方");//016000
+                    cbRegions.Items.Add("渡島・檜山地方");//017000
                     break;
                 case 1:
-                    areaCode = "012000";
+                    cbRegions.Items.Add("青森県");//020000
+                    cbRegions.Items.Add("岩手県");//030000
+                    cbRegions.Items.Add("宮城県");//040000
+                    cbRegions.Items.Add("秋田県");//050000  10
+                    cbRegions.Items.Add("山形県");//060000
+                    cbRegions.Items.Add("福島県");//070000
                     break;
                 case 2:
-                    areaCode = "013000";
+                    cbRegions.Items.Add("茨城県");//080000
+                    cbRegions.Items.Add("栃木県");//090000
+                    cbRegions.Items.Add("群馬県");//100000
+                    cbRegions.Items.Add("埼玉県");//110000
+                    cbRegions.Items.Add("千葉県");//120000
+                    cbRegions.Items.Add("東京都");//130000
+                    cbRegions.Items.Add("神奈川県");//140000
+                    cbRegions.Items.Add("山梨県");//190000
+                    cbRegions.Items.Add("長野県");//200000
                     break;
                 case 3:
-                    areaCode = "014100";
+                    cbRegions.Items.Add("岐阜県");//210000
+                    cbRegions.Items.Add("静岡県");//220000
+                    cbRegions.Items.Add("愛知県");//230000
+                    cbRegions.Items.Add("三重県");//240000
                     break;
                 case 4:
-                    areaCode = "015000";
+                    cbRegions.Items.Add("新潟県");//150000
+                    cbRegions.Items.Add("富山県");//160000
+                    cbRegions.Items.Add("石川県");//170000
+                    cbRegions.Items.Add("福井県");//180000
                     break;
                 case 5:
-                    areaCode = "016000";
+                    cbRegions.Items.Add("滋賀県");//250000
+                    cbRegions.Items.Add("京都府");//260000
+                    cbRegions.Items.Add("大阪府");//270000
+                    cbRegions.Items.Add("兵庫県");//280000
+                    cbRegions.Items.Add("奈良県");//290000
+                    cbRegions.Items.Add("和歌山県");//300000
                     break;
                 case 6:
-                    areaCode = "017000";
+                    cbRegions.Items.Add("鳥取県");//310000
+                    cbRegions.Items.Add("島根県");//320000
+                    cbRegions.Items.Add("岡山県");//330000
+                    cbRegions.Items.Add("広島県");//340000
                     break;
                 case 7:
-                    areaCode = "020000";
+                    cbRegions.Items.Add("徳島県");//360000
+                    cbRegions.Items.Add("香川県");//370000
+                    cbRegions.Items.Add("愛媛県");//380000
+                    cbRegions.Items.Add("高知県");//390000
                     break;
                 case 8:
-                    areaCode = "030000";
+                    cbRegions.Items.Add("山口県");//350000
+                    cbRegions.Items.Add("福岡県");//400000
+                    cbRegions.Items.Add("佐賀県");//410000
+                    cbRegions.Items.Add("長崎県");//420000
+                    cbRegions.Items.Add("熊本県");//430000
+                    cbRegions.Items.Add("大分県");//440000
                     break;
                 case 9:
-                    areaCode = "040000";
+                    cbRegions.Items.Add("宮崎県");//450000
+                    cbRegions.Items.Add("鹿児島県");//460100
                     break;
                 case 10:
+                    cbPrefecture.Items.Add("沖縄本島地方");//471000
+                    cbPrefecture.Items.Add("大東島地方");//472000
+                    cbPrefecture.Items.Add("宮古島地方");//473000
+                    cbPrefecture.Items.Add("八重山地方");//474000
+                    break;
+            }
+        }
+
+        //コンボボックスに地方名セット
+        private void SetCdPrefectureName() {
+            cbPrefecture.Items.Add("北海道地方");
+            cbPrefecture.Items.Add("東北地方");
+            cbPrefecture.Items.Add("関東甲信地方");
+            cbPrefecture.Items.Add("東海地方");
+            cbPrefecture.Items.Add("北陸地方");
+            cbPrefecture.Items.Add("近畿地方");
+            cbPrefecture.Items.Add("中国地方（山口県を除く)");
+            cbPrefecture.Items.Add("四国地方");
+            cbPrefecture.Items.Add("九州北部地方（山口県を含む)");
+            cbPrefecture.Items.Add("九州南部・奄美地方");
+            cbPrefecture.Items.Add("沖縄地方");
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            //実行時に地方名セット
+            SetCdPrefectureName();
+            EnableCheck();
+        }
+
+        private void cbPrefecture_TextChanged(object sender, EventArgs e) {
+            int index = cbPrefecture.SelectedIndex;
+            SetCbRegionName(index);
+            EnableCheck();
+        }
+
+        private void cbRegions_TextChanged(object sender, EventArgs e) {
+            EnableCheck();
+        }
+
+        //選択された地方のエリアコード取得
+        private string GetAreaCode(string regions) {
+            switch (regions) {
+                case "宗谷地方":
+                    areaCode = "011000";
+                    break;
+                case "上川・留萌地方":
+                    areaCode = "012000";
+                    break;
+                case "網走・北見・紋別地方":
+                    areaCode = "013000";
+                    break;
+                case "釧路・根室地方":
+                    areaCode = "014100";
+                    break;
+                case "胆振・日高地方":
+                    areaCode = "015000";
+                    break;
+                case "石狩・空知・後志地方":
+                    areaCode = "016000";
+                    break;
+                case "渡島・檜山地方":
+                    areaCode = "017000";
+                    break;
+                case "青森県":
+                    areaCode = "020000";
+                    break;
+                case "岩手県":
+                    areaCode = "030000";
+                    break;
+                case "宮城県":
+                    areaCode = "040000";
+                    break;
+                case "秋田県":
                     areaCode = "050000";
                     break;
-                case 11:
+                case "山形県":
                     areaCode = "060000";
                     break;
-                case 12:
+                case "福島県":
                     areaCode = "070000";
                     break;
-                case 13:
+                case "茨城県":
                     areaCode = "080000";
                     break;
-                case 14:
+                case "栃木県":
                     areaCode = "090000";
                     break;
-                case 15:
+                case "群馬県":
                     areaCode = "100000";
                     break;
-                case 16:
+                case "埼玉県":
                     areaCode = "110000";
                     break;
-                case 17:
+                case "千葉県":
                     areaCode = "120000";
                     break;
-                case 18:
+                case "東京都":
                     areaCode = "130000";
                     break;
-                case 19:
+                case "神奈川県":
                     areaCode = "140000";
                     break;
-                case 20:
+                case "山梨県":
                     areaCode = "190000";
                     break;
-                case 21:
+                case "長野県":
                     areaCode = "200000";
                     break;
-                case 22:
+                case "岐阜県":
                     areaCode = "210000";
                     break;
-                case 23:
+                case "静岡県":
                     areaCode = "220000";
                     break;
-                case 24:
+                case "愛知県":
                     areaCode = "230000";
                     break;
-                case 25:
+                case "三重県":
                     areaCode = "240000";
                     break;
-                case 26:
+                case "新潟県":
                     areaCode = "150000";
                     break;
-                case 27:
+                case "富山県":
                     areaCode = "160000";
                     break;
-                case 28:
+                case "石川県":
                     areaCode = "170000";
                     break;
-                case 29:
+                case "福井県":
                     areaCode = "180000";
                     break;
-                case 30:
+                case "滋賀県":
                     areaCode = "250000";
                     break;
-                case 31:
+                case "京都府":
                     areaCode = "260000";
                     break;
-                case 32:
+                case "大阪府":
                     areaCode = "270000";
                     break;
-                case 33:
+                case "兵庫県":
                     areaCode = "280000";
                     break;
-                case 34:
+                case "奈良県":
                     areaCode = "290000";
                     break;
-                case 35:
+                case "和歌山県":
                     areaCode = "300000";
                     break;
-                case 36:
+                case "鳥取県":
                     areaCode = "310000";
                     break;
-                case 37:
+                case "島根県":
                     areaCode = "320000";
                     break;
-                case 38:
+                case "岡山県":
                     areaCode = "330000";
                     break;
-                case 39:
+                case "広島県":
                     areaCode = "340000";
                     break;
-                case 40:
+                case "徳島県":
                     areaCode = "360000";
                     break;
-                case 41:
+                case "香川県":
                     areaCode = "370000";
                     break;
-                case 42:
+                case "愛媛県":
                     areaCode = "380000";
                     break;
-                case 43:
+                case "高知県":
                     areaCode = "390000";
                     break;
-                case 44:
+                case "山口県":
                     areaCode = "350000";
                     break;
-                case 45:
+                case "福岡県":
                     areaCode = "400000";
                     break;
-                case 46:
+                case "佐賀県":
                     areaCode = "410000";
                     break;
-                case 47:
+                case "長崎県":
                     areaCode = "420000";
                     break;
-                case 48:
+                case "熊本県":
                     areaCode = "430000";
                     break;
-                case 49:
+                case "大分県":
                     areaCode = "440000";
                     break;
-                case 50:
+                case "宮崎県":
                     areaCode = "450000";
                     break;
-                case 51:
+                case "鹿児島県":
                     areaCode = "460100";
                     break;
-                case 52:
+                case "沖縄本島地方":
                     areaCode = "471000";
                     break;
-                case 53:
+                case "大東島地方":
                     areaCode = "472000";
                     break;
-                case 54:
+                case "宮古島地方":
                     areaCode = "473000";
                     break;
-                case 55:
+                case "八重山地方":
                     areaCode = "474000";
                     break;
             }
             return areaCode;
         }
 
-        //コンボボックスに地方名セット
-        private void SetCdAreaName() {
-            cbArea.Items.Add("宗谷地方");//011000
-            cbArea.Items.Add("上川・留萌地方");//012000
-            cbArea.Items.Add("網走・北見・紋別地方");//013000
-            cbArea.Items.Add("釧路・根室地方");//014100
-            cbArea.Items.Add("胆振・日高地方");//015000
-            cbArea.Items.Add("石狩・空知・後志地方");//016000
-            cbArea.Items.Add("渡島・檜山地方");//017000
-            cbArea.Items.Add("青森県");//020000
-            cbArea.Items.Add("岩手県");//030000
-            cbArea.Items.Add("宮城県");//040000
-            cbArea.Items.Add("秋田県");//050000  10
-            cbArea.Items.Add("山形県");//060000
-            cbArea.Items.Add("福島県");//070000
-            cbArea.Items.Add("茨城県");//080000
-            cbArea.Items.Add("栃木県");//090000
-            cbArea.Items.Add("群馬県");//100000
-            cbArea.Items.Add("埼玉県");//110000
-            cbArea.Items.Add("千葉県");//120000
-            cbArea.Items.Add("東京都");//130000
-            cbArea.Items.Add("神奈川県");//140000
-            cbArea.Items.Add("山梨県");//190000
-            cbArea.Items.Add("長野県");//200000
-            cbArea.Items.Add("岐阜県");//210000
-            cbArea.Items.Add("静岡県");//220000
-            cbArea.Items.Add("愛知県");//230000
-            cbArea.Items.Add("三重県");//240000
-            cbArea.Items.Add("新潟県");//150000
-            cbArea.Items.Add("富山県");//160000
-            cbArea.Items.Add("石川県");//170000
-            cbArea.Items.Add("福井県");//180000
-            cbArea.Items.Add("滋賀県");//250000
-            cbArea.Items.Add("京都府");//260000
-            cbArea.Items.Add("大阪府");//270000
-            cbArea.Items.Add("兵庫県");//280000
-            cbArea.Items.Add("奈良県");//290000
-            cbArea.Items.Add("和歌山県");//300000
-            cbArea.Items.Add("鳥取県");//310000
-            cbArea.Items.Add("島根県");//320000
-            cbArea.Items.Add("岡山県");//330000
-            cbArea.Items.Add("広島県");//340000
-            cbArea.Items.Add("徳島県");//360000
-            cbArea.Items.Add("香川県");//370000
-            cbArea.Items.Add("愛媛県");//380000
-            cbArea.Items.Add("高知県");//390000
-            cbArea.Items.Add("山口県");//350000
-            cbArea.Items.Add("福岡県");//400000
-            cbArea.Items.Add("佐賀県");//410000
-            cbArea.Items.Add("長崎県");//420000
-            cbArea.Items.Add("熊本県");//430000
-            cbArea.Items.Add("大分県");//440000
-            cbArea.Items.Add("宮崎県");//450000
-            //cbArea.Items.Add("奄美地方");//460040
-            cbArea.Items.Add("鹿児島県");//460100
-            cbArea.Items.Add("沖縄本島地方");//471000
-            cbArea.Items.Add("大東島地方");//472000
-            cbArea.Items.Add("宮古島地方");//473000
-            cbArea.Items.Add("八重山地方");//474000
-        }
 
+        //取得ボタンのマスク処理
         private void EnableCheck() {
-            btWeatherGet.Enabled = cbArea.Text == null ? true : false;
-        }
-
-        private void Form1_Load(object sender, EventArgs e) {
-            SetCdAreaName();
+            btWeatherGet.Enabled = cbRegions.Text.Count() > 0 ? true : false;
         }
     }
 }
