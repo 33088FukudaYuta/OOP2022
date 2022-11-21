@@ -18,6 +18,14 @@ namespace WeatherApp {
         string todayWeatherCode;
         string tomorrowWeatherCode;
 
+        string oneDayWeatherCode;
+        string twoDayWeatherCode;
+        string therrDayWeatherCode;
+        string fourDayWeatherCode;
+        string fiveDayWeatherCode;
+        string sixDayWeatherCode;
+
+
         public Form1() {
             InitializeComponent();
         }
@@ -86,6 +94,52 @@ namespace WeatherApp {
 
             //選択した地方の概況
             tbWeatherInfo.Text = djson.text;
+
+            //1週間の天気予報ラベルに日付表示
+            lbTodayTemp.Text = string.Format("{0}月{1}日", cjson[0].reportDatetime.Month.ToString(),cjson[0].reportDatetime.Day.ToString()); //今日
+            lbOneDay.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[0].Day); //1日後
+            lbTwoDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[1].Day); //2日後
+            lbThreeDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[2].Day); //3日後
+            lbFourDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[3].Day); //4日後
+            lbFiveDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[4].Day); //5日後
+            lbSixDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[5].Day); //6日後
+
+            //1週間の天気予報最高気温、最低気温表示
+            tbTodayTemp.Text = string.Format("{0} / {1}", cjson[1].tempAverage.areas[0].max, cjson[1].tempAverage.areas[0].min); //今日
+            tbOneDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[1], cjson[1].timeSeries[1].areas[0].tempsMin[1]); //1日後
+            tbTwoDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[2], cjson[1].timeSeries[1].areas[0].tempsMin[2]); //2日後
+            tbThreeDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[3], cjson[1].timeSeries[1].areas[0].tempsMin[3]); //3日後
+            tbFourDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[4], cjson[1].timeSeries[1].areas[0].tempsMin[4]); //4日後
+            tbFiveDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[5], cjson[1].timeSeries[1].areas[0].tempsMin[5]); //5日後
+            tbSixDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[6], cjson[1].timeSeries[1].areas[0].tempsMin[6]); //6日後
+
+            //1週間の天気予報天気マーク表示
+            //今日
+            pbToday.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
+
+            //1日後
+            oneDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[0];
+            pbOneDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + oneDayWeatherCode + ".png";
+
+            //2日後
+            twoDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[1];
+            pbTwoDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + twoDayWeatherCode + ".png";
+
+            //3日後
+            therrDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[2];
+            pbThreeDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + therrDayWeatherCode + ".png";
+
+            //4日後
+            fourDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[3];
+            pbFourDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fourDayWeatherCode + ".png";
+
+            //5日後
+            fiveDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[4];
+            pbFiveDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fiveDayWeatherCode + ".png";
+
+            //6日後
+            sixDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[5];
+            pbSixDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + sixDayWeatherCode + ".png";
         }
 
         //選択された地方の地方(地域)名セット
@@ -165,10 +219,10 @@ namespace WeatherApp {
                     cbRegions.Items.Add("鹿児島県");//460100
                     break;
                 case 10:
-                    cbPrefecture.Items.Add("沖縄本島地方");//471000
-                    cbPrefecture.Items.Add("大東島地方");//472000
-                    cbPrefecture.Items.Add("宮古島地方");//473000
-                    cbPrefecture.Items.Add("八重山地方");//474000
+                    cbRegions.Items.Add("沖縄本島地方");//471000
+                    cbRegions.Items.Add("大東島地方");//472000
+                    cbRegions.Items.Add("宮古島地方");//473000
+                    cbRegions.Items.Add("八重山地方");//474000
                     break;
             }
         }
