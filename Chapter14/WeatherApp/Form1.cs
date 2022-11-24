@@ -14,16 +14,18 @@ namespace WeatherApp {
 
     public partial class Form1 : Form {
 
-        string areaCode;
-        string todayWeatherCode;
-        string tomorrowWeatherCode;
+        string areaCode; //エリアコード
+        string todayWeatherCode; //今日の天気コード
+        string tomorrowWeatherCode; //明日の天気コード
 
-        string oneDayWeatherCode;
-        string twoDayWeatherCode;
-        string therrDayWeatherCode;
-        string fourDayWeatherCode;
-        string fiveDayWeatherCode;
-        string sixDayWeatherCode;
+        string oneDayWeatherCode; //1日後の天気コード
+        string twoDayWeatherCode; //2日後の天気コード
+        string therrDayWeatherCode; //3日後の天気コード
+        string fourDayWeatherCode; //4日後の天気コード
+        string fiveDayWeatherCode; //5日後の天気コード
+        string sixDayWeatherCode; //6日後の天気コード
+
+        string url;
 
 
         public Form1() {
@@ -79,10 +81,10 @@ namespace WeatherApp {
             tbTomorrowWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[1];
 
             //今日、明日の最高気温、最低気温
-            tbTodayMaxTemp.Text = cjson[1].tempAverage.areas[0].max;
-            tbTodayMinTemp.Text = cjson[1].tempAverage.areas[0].min;
-            tbTrMaxTemp.Text = cjson[1].timeSeries[1].areas[0].tempsMax[1];
-            tbTrMinTemp.Text = cjson[1].timeSeries[1].areas[0].tempsMin[1];
+            tbTodayMaxTemp.Text = string.Format("{0}°",cjson[1].tempAverage.areas[0].max);
+            tbTodayMinTemp.Text = string.Format("{0}°",cjson[1].tempAverage.areas[0].min);
+            tbTrMaxTemp.Text = string.Format("{0}°",cjson[1].timeSeries[1].areas[0].tempsMax[1]);
+            tbTrMinTemp.Text = string.Format("{0}°",cjson[1].timeSeries[1].areas[0].tempsMin[1]);
 
             //今日の天気マーク
             todayWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[0];
@@ -159,7 +161,7 @@ namespace WeatherApp {
                     cbRegions.Items.Add("青森県");//020000
                     cbRegions.Items.Add("岩手県");//030000
                     cbRegions.Items.Add("宮城県");//040000
-                    cbRegions.Items.Add("秋田県");//050000  10
+                    cbRegions.Items.Add("秋田県");//050000
                     cbRegions.Items.Add("山形県");//060000
                     cbRegions.Items.Add("福島県");//070000
                     break;
@@ -246,6 +248,13 @@ namespace WeatherApp {
             //実行時に地方名セット
             SetCdPrefectureName();
             EnableCheck();
+            url = "https://1.bp.blogspot.com/-NsFScj04D1o/XXXOY2ES4TI/AAAAAAABUtU/wDOUQt1vFCUvs_ZATrHNJPEJhQ-Goof4QCLcBGAs/s1600/bg_tenki_ame.png";
+            pbBackGround.ImageLocation = url;
+
+            
+            pbBackGround.Controls.Add(lbArea);
+            pbBackGround.Controls.Add(lbPresenter);
+            this.Controls.Add(pbFiveDayLater);
         }
 
         private void cbPrefecture_TextChanged(object sender, EventArgs e) {
