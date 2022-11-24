@@ -25,37 +25,9 @@ namespace WeatherApp {
         string fiveDayWeatherCode; //5日後の天気コード
         string sixDayWeatherCode; //6日後の天気コード
 
-        string url;
-
-
         public Form1() {
             InitializeComponent();
         }
-
-        /*https://qiita.com/michan06/items/48503631dd30275288f7
-
-          概況（三日間）
-          https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
-
-          概況（七日間）
-          https://www.jma.go.jp/bosai/forecast/data/overview_week/130000.json
-
-          エリアコード
-          https://zenn.dev/inoue2002/articles/2e07da8d0ca9ca
-
-          https://anko.education/apps/weather_api*/
-
-        //選択した地域の天気予報
-        //https://www.jma.go.jp/bosai/forecast/data/forecast/090000.json
-
-        //画像取得等
-        //https://qiita.com/michan06/items/48503631dd30275288f7
-
-        //天気予報の画像URL
-        //https://www.jma.go.jp/bosai/forecast/img/100.svg
-
-        //天気予報画像
-        //var pWeather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg");
 
         //取得ボタン押したときの処理
         private void btWeatherGet_Click(object sender, EventArgs e) {
@@ -66,82 +38,89 @@ namespace WeatherApp {
             //エリアコード取得
             GetAreaCode(cbRegions.Text);
 
-            //概況
-            var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + areaCode + ".json");
-            var djson = JsonConvert.DeserializeObject<Rootobject>(dString);
+            try {
+                //概況
+                var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + areaCode + ".json");
+                var djson = JsonConvert.DeserializeObject<Rootobject>(dString);
 
-            //詳細
-            var cString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + areaCode + ".json");
-            var cjson = JsonConvert.DeserializeObject<Class1[]>(cString);
-           　
-            tbPresenter.Text = cjson[0].publishingOffice.ToString();
-            tbrDate.Text = cjson[0].reportDatetime.ToString();
-            tbArea.Text = djson.targetArea;
-            tbTodayWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[0];
-            tbTomorrowWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[1];
+                //詳細
+                var cString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + areaCode + ".json");
+                var cjson = JsonConvert.DeserializeObject<Class1[]>(cString);
 
-            //今日、明日の最高気温、最低気温
-            tbTodayMaxTemp.Text = string.Format("{0}°",cjson[1].tempAverage.areas[0].max);
-            tbTodayMinTemp.Text = string.Format("{0}°",cjson[1].tempAverage.areas[0].min);
-            tbTrMaxTemp.Text = string.Format("{0}°",cjson[1].timeSeries[1].areas[0].tempsMax[1]);
-            tbTrMinTemp.Text = string.Format("{0}°",cjson[1].timeSeries[1].areas[0].tempsMin[1]);
+                tbPresenter.Text = cjson[0].publishingOffice.ToString();
+                tbrDate.Text = cjson[0].reportDatetime.ToString();
+                tbArea.Text = djson.targetArea;
+                tbTodayWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[0];
+                tbTomorrowWeather.Text = cjson[0].timeSeries[0].areas[0].weathers[1];
 
-            //今日の天気マーク
-            todayWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[0];
-            pbTodayWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
+                //今日、明日の最高気温、最低気温
+                tbTodayMaxTemp.Text = string.Format("{0}°", cjson[1].tempAverage.areas[0].max);
+                tbTodayMinTemp.Text = string.Format("{0}°", cjson[1].tempAverage.areas[0].min);
+                tbTrMaxTemp.Text = string.Format("{0}°", cjson[1].timeSeries[1].areas[0].tempsMax[1]);
+                tbTrMinTemp.Text = string.Format("{0}°", cjson[1].timeSeries[1].areas[0].tempsMin[1]);
 
-            //明日の天気マーク
-            tomorrowWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[1];
-            pbTomorrowWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + tomorrowWeatherCode + ".png";
+                //今日の天気マーク
+                todayWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[0];
+                pbTodayWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
 
-            //選択した地方の概況
-            tbWeatherInfo.Text = djson.text;
+                //明日の天気マーク
+                tomorrowWeatherCode = cjson[0].timeSeries[0].areas[0].weatherCodes[1];
+                pbTomorrowWeather.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + tomorrowWeatherCode + ".png";
 
-            //1週間の天気予報ラベルに日付表示
-            lbTodayTemp.Text = string.Format("{0}月{1}日", cjson[0].reportDatetime.Month.ToString(),cjson[0].reportDatetime.Day.ToString()); //今日
-            lbOneDay.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[0].Day); //1日後
-            lbTwoDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[1].Day); //2日後
-            lbThreeDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[2].Day); //3日後
-            lbFourDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[3].Day); //4日後
-            lbFiveDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[4].Day); //5日後
-            lbSixDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[5].Day); //6日後
+                //選択した地方の概況
+                tbWeatherInfo.Text = djson.text;
 
-            //1週間の天気予報最高気温、最低気温表示
-            tbTodayTemp.Text = string.Format("{0} / {1}", cjson[1].tempAverage.areas[0].max, cjson[1].tempAverage.areas[0].min); //今日
-            tbOneDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[1], cjson[1].timeSeries[1].areas[0].tempsMin[1]); //1日後
-            tbTwoDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[2], cjson[1].timeSeries[1].areas[0].tempsMin[2]); //2日後
-            tbThreeDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[3], cjson[1].timeSeries[1].areas[0].tempsMin[3]); //3日後
-            tbFourDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[4], cjson[1].timeSeries[1].areas[0].tempsMin[4]); //4日後
-            tbFiveDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[5], cjson[1].timeSeries[1].areas[0].tempsMin[5]); //5日後
-            tbSixDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[6], cjson[1].timeSeries[1].areas[0].tempsMin[6]); //6日後
+                //1週間の天気予報ラベルに日付表示
+                lbTodayTemp.Text = string.Format("{0}月{1}日", cjson[0].reportDatetime.Month.ToString(), cjson[0].reportDatetime.Day.ToString()); //今日
+                lbOneDay.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[0].Day); //1日後
+                lbTwoDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[1].Day); //2日後
+                lbThreeDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[2].Day); //3日後
+                lbFourDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[3].Day); //4日後
+                lbFiveDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[4].Day); //5日後
+                lbSixDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[5].Day); //6日後
 
-            //1週間の天気予報天気マーク表示
-            //今日
-            pbToday.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
+                //1週間の天気予報最高気温、最低気温表示
+                tbTodayTemp.Text = string.Format("{0} / {1}", cjson[1].tempAverage.areas[0].max, cjson[1].tempAverage.areas[0].min); //今日
+                tbOneDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[1], cjson[1].timeSeries[1].areas[0].tempsMin[1]); //1日後
+                tbTwoDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[2], cjson[1].timeSeries[1].areas[0].tempsMin[2]); //2日後
+                tbThreeDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[3], cjson[1].timeSeries[1].areas[0].tempsMin[3]); //3日後
+                tbFourDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[4], cjson[1].timeSeries[1].areas[0].tempsMin[4]); //4日後
+                tbFiveDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[5], cjson[1].timeSeries[1].areas[0].tempsMin[5]); //5日後
+                tbSixDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[6], cjson[1].timeSeries[1].areas[0].tempsMin[6]); //6日後
 
-            //1日後
-            oneDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[0];
-            pbOneDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + oneDayWeatherCode + ".png";
+                //1週間の天気予報天気マーク表示
+                //今日
+                pbToday.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + todayWeatherCode + ".png";
 
-            //2日後
-            twoDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[1];
-            pbTwoDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + twoDayWeatherCode + ".png";
+                //1日後
+                oneDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[0];
+                pbOneDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + oneDayWeatherCode + ".png";
 
-            //3日後
-            therrDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[2];
-            pbThreeDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + therrDayWeatherCode + ".png";
+                //2日後
+                twoDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[1];
+                pbTwoDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + twoDayWeatherCode + ".png";
 
-            //4日後
-            fourDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[3];
-            pbFourDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fourDayWeatherCode + ".png";
+                //3日後
+                therrDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[2];
+                pbThreeDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + therrDayWeatherCode + ".png";
 
-            //5日後
-            fiveDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[4];
-            pbFiveDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fiveDayWeatherCode + ".png";
+                //4日後
+                fourDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[3];
+                pbFourDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fourDayWeatherCode + ".png";
 
-            //6日後
-            sixDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[5];
-            pbSixDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + sixDayWeatherCode + ".png";
+                //5日後
+                fiveDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[4];
+                pbFiveDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + fiveDayWeatherCode + ".png";
+
+                //6日後
+                sixDayWeatherCode = cjson[1].timeSeries[0].areas[0].weatherCodes[5];
+                pbSixDayLater.ImageLocation = "https://www.jma.go.jp/bosai/forecast/img/" + sixDayWeatherCode + ".png";
+
+            }
+            catch (WebException ex) {
+                MessageBox.Show("error：" + ex);
+                Application.Exit();           
+            }
         }
 
         //選択された地方の地方(地域)名セット
@@ -248,13 +227,6 @@ namespace WeatherApp {
             //実行時に地方名セット
             SetCdPrefectureName();
             EnableCheck();
-            url = "https://1.bp.blogspot.com/-NsFScj04D1o/XXXOY2ES4TI/AAAAAAABUtU/wDOUQt1vFCUvs_ZATrHNJPEJhQ-Goof4QCLcBGAs/s1600/bg_tenki_ame.png";
-            pbBackGround.ImageLocation = url;
-
-            
-            pbBackGround.Controls.Add(lbArea);
-            pbBackGround.Controls.Add(lbPresenter);
-            this.Controls.Add(pbFiveDayLater);
         }
 
         private void cbPrefecture_TextChanged(object sender, EventArgs e) {

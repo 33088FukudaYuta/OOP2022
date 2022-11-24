@@ -74,7 +74,6 @@ namespace WeatherApp {
             this.pbFourDayLater = new System.Windows.Forms.PictureBox();
             this.pbFiveDayLater = new System.Windows.Forms.PictureBox();
             this.pbSixDayLater = new System.Windows.Forms.PictureBox();
-            this.pbBackGround = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbTodayWeather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTomorrowWeather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbToday)).BeginInit();
@@ -84,7 +83,6 @@ namespace WeatherApp {
             ((System.ComponentModel.ISupportInitialize)(this.pbFourDayLater)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFiveDayLater)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSixDayLater)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).BeginInit();
             this.SuspendLayout();
             // 
             // tbWeatherInfo
@@ -246,7 +244,7 @@ namespace WeatherApp {
             // pbTodayWeather
             // 
             this.pbTodayWeather.BackColor = System.Drawing.Color.Transparent;
-            this.pbTodayWeather.Location = new System.Drawing.Point(537, 234);
+            this.pbTodayWeather.Location = new System.Drawing.Point(540, 235);
             this.pbTodayWeather.Margin = new System.Windows.Forms.Padding(4);
             this.pbTodayWeather.Name = "pbTodayWeather";
             this.pbTodayWeather.Size = new System.Drawing.Size(131, 100);
@@ -418,7 +416,7 @@ namespace WeatherApp {
             // 
             // tbOneDayLaterTemp
             // 
-            this.tbOneDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbOneDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbOneDayLaterTemp.Location = new System.Drawing.Point(925, 174);
             this.tbOneDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbOneDayLaterTemp.Multiline = true;
@@ -429,6 +427,7 @@ namespace WeatherApp {
             // lbTwoDayLater
             // 
             this.lbTwoDayLater.AutoSize = true;
+            this.lbTwoDayLater.BackColor = System.Drawing.Color.Transparent;
             this.lbTwoDayLater.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbTwoDayLater.Location = new System.Drawing.Point(749, 272);
             this.lbTwoDayLater.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -440,6 +439,7 @@ namespace WeatherApp {
             // lbThreeDayLater
             // 
             this.lbThreeDayLater.AutoSize = true;
+            this.lbThreeDayLater.BackColor = System.Drawing.Color.Transparent;
             this.lbThreeDayLater.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbThreeDayLater.Location = new System.Drawing.Point(747, 351);
             this.lbThreeDayLater.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -451,6 +451,7 @@ namespace WeatherApp {
             // lbFourDayLater
             // 
             this.lbFourDayLater.AutoSize = true;
+            this.lbFourDayLater.BackColor = System.Drawing.Color.Transparent;
             this.lbFourDayLater.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbFourDayLater.Location = new System.Drawing.Point(747, 437);
             this.lbFourDayLater.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -462,6 +463,7 @@ namespace WeatherApp {
             // lbFiveDayLater
             // 
             this.lbFiveDayLater.AutoSize = true;
+            this.lbFiveDayLater.BackColor = System.Drawing.Color.Transparent;
             this.lbFiveDayLater.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbFiveDayLater.Location = new System.Drawing.Point(749, 524);
             this.lbFiveDayLater.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -473,6 +475,7 @@ namespace WeatherApp {
             // lbSixDayLater
             // 
             this.lbSixDayLater.AutoSize = true;
+            this.lbSixDayLater.BackColor = System.Drawing.Color.Transparent;
             this.lbSixDayLater.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.lbSixDayLater.Location = new System.Drawing.Point(749, 611);
             this.lbSixDayLater.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -483,7 +486,7 @@ namespace WeatherApp {
             // 
             // tbTwoDayLaterTemp
             // 
-            this.tbTwoDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbTwoDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbTwoDayLaterTemp.Location = new System.Drawing.Point(924, 258);
             this.tbTwoDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbTwoDayLaterTemp.Multiline = true;
@@ -493,7 +496,7 @@ namespace WeatherApp {
             // 
             // tbThreeDayLaterTemp
             // 
-            this.tbThreeDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbThreeDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbThreeDayLaterTemp.Location = new System.Drawing.Point(925, 346);
             this.tbThreeDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbThreeDayLaterTemp.Multiline = true;
@@ -503,7 +506,7 @@ namespace WeatherApp {
             // 
             // tbFourDayLaterTemp
             // 
-            this.tbFourDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbFourDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbFourDayLaterTemp.Location = new System.Drawing.Point(925, 432);
             this.tbFourDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbFourDayLaterTemp.Multiline = true;
@@ -513,7 +516,7 @@ namespace WeatherApp {
             // 
             // tbFiveDayLaterTemp
             // 
-            this.tbFiveDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbFiveDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbFiveDayLaterTemp.Location = new System.Drawing.Point(924, 519);
             this.tbFiveDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbFiveDayLaterTemp.Multiline = true;
@@ -523,7 +526,7 @@ namespace WeatherApp {
             // 
             // tbSixDayLaterTemp
             // 
-            this.tbSixDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbSixDayLaterTemp.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbSixDayLaterTemp.Location = new System.Drawing.Point(925, 606);
             this.tbSixDayLaterTemp.Margin = new System.Windows.Forms.Padding(4);
             this.tbSixDayLaterTemp.Multiline = true;
@@ -625,20 +628,12 @@ namespace WeatherApp {
             this.pbSixDayLater.TabIndex = 4;
             this.pbSixDayLater.TabStop = false;
             // 
-            // pbBackGround
-            // 
-            this.pbBackGround.BackColor = System.Drawing.Color.Transparent;
-            this.pbBackGround.Location = new System.Drawing.Point(-5, -2);
-            this.pbBackGround.Name = "pbBackGround";
-            this.pbBackGround.Size = new System.Drawing.Size(1296, 719);
-            this.pbBackGround.TabIndex = 7;
-            this.pbBackGround.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Aquamarine;
+            this.BackgroundImage = global::WeatherApp.Properties.Resources.bg_tenki_ame;
             this.ClientSize = new System.Drawing.Size(1282, 705);
             this.Controls.Add(this.pbTodayWeather);
             this.Controls.Add(this.tbSixDayLaterTemp);
@@ -690,7 +685,6 @@ namespace WeatherApp {
             this.Controls.Add(this.tbrDate);
             this.Controls.Add(this.tbPresenter);
             this.Controls.Add(this.tbWeatherInfo);
-            this.Controls.Add(this.pbBackGround);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "天気アプリ";
@@ -704,7 +698,6 @@ namespace WeatherApp {
             ((System.ComponentModel.ISupportInitialize)(this.pbFourDayLater)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFiveDayLater)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSixDayLater)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -762,7 +755,6 @@ namespace WeatherApp {
         private System.Windows.Forms.PictureBox pbFourDayLater;
         private System.Windows.Forms.PictureBox pbFiveDayLater;
         private System.Windows.Forms.PictureBox pbSixDayLater;
-        private System.Windows.Forms.PictureBox pbBackGround;
     }
 }
 
