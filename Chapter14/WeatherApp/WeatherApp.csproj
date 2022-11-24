@@ -89,5 +89,11 @@
   <ItemGroup>
     <None Include="Resources\bg_tenki_ame.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\天気背景画像.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\天気背景画像1.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

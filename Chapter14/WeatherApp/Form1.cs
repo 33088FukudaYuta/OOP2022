@@ -78,9 +78,9 @@ namespace WeatherApp {
                 lbFourDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[3].Day); //4日後
                 lbFiveDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[4].Day); //5日後
                 lbSixDayLater.Text = string.Format("{0}月{1}日", cjson[1].timeSeries[0].timeDefines[0].Month, cjson[1].timeSeries[0].timeDefines[5].Day); //6日後
-
+                
                 //1週間の天気予報最高気温、最低気温表示
-                tbTodayTemp.Text = string.Format("{0} / {1}", cjson[1].tempAverage.areas[0].max, cjson[1].tempAverage.areas[0].min); //今日
+                tbTodayTemp.Text = string.Format("{0} / {1}",cjson[1].tempAverage.areas[0].max,cjson[1].tempAverage.areas[0].min); //今日
                 tbOneDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[1], cjson[1].timeSeries[1].areas[0].tempsMin[1]); //1日後
                 tbTwoDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[2], cjson[1].timeSeries[1].areas[0].tempsMin[2]); //2日後
                 tbThreeDayLaterTemp.Text = string.Format("{0} / {1}", cjson[1].timeSeries[1].areas[0].tempsMax[3], cjson[1].timeSeries[1].areas[0].tempsMin[3]); //3日後
