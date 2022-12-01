@@ -231,8 +231,9 @@ namespace WeatherApp {
 
         private void cbPrefecture_TextChanged(object sender, EventArgs e) {
             int index = cbPrefecture.SelectedIndex;
+            cbRegions.Text = null;
             SetCbRegionName(index);
-            EnableCheck();
+            EnableCheck(); 
         }
 
         private void cbRegions_TextChanged(object sender, EventArgs e) {
