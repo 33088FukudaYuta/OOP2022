@@ -1,0 +1,48 @@
+﻿<Page x:Class="CalendarSample.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CalendarSample"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="790"
+      Title="Page1" Background="AliceBlue">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="button_foodex" Content="食費" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <Button x:Name="button_fashion" Content="衣類・ファッション" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        <Button x:Name="button_photothermalfee" Content="光熱費" Grid.Row="0" Grid.Column="2" Margin="5"/>
+
+        <Button x:Name="button_travellingex" Content="交通費" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <Button x:Name="button_communicationscost" Content="通信費" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <Button x:Name="button_insurance" Content="保険" Grid.Row="1" Grid.Column="2" Margin="5"/>
+
+        <Button x:Name="button_book" Content="本・雑誌" Grid.Row="2" Grid.Column="0" Margin="5"/>
+        <Button x:Name="button_rent" Content="家賃" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <Button x:Name="button_everydayitem" Content="日用品" Grid.Row="2" Grid.Column="2" Margin="5"/>
+
+        <Button x:Name="button_medicalex" Content="医療品・医療費" Grid.Row="3" Grid.Column="0" Margin="5" RenderTransformOrigin="0.135,0.896"/>
+        <Button x:Name="button_travelex" Content="旅費交通費" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <Button x:Name="button_phone" Content="携帯電話・インターネット" Grid.Row="3" Grid.Column="2" Margin="5"/>
+
+        <Label Content="金額" Grid.Row="5" Grid.Column="0" FontSize="30" Height="50" HorizontalAlignment="Left" Margin="5"/>
+        <TextBox x:Name="Text_money" Grid.Row="5" Grid.ColumnSpan="3" Height="60" Margin="80,10,10,10" FontSize="40"/>
+        <ListBox Name="moneyList" Grid.Row="0" Grid.Column="3" Grid.RowSpan="7" Margin="5"/>
+    </Grid>
+</Page>
