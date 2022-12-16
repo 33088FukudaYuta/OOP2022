@@ -25,24 +25,33 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="button_foodex" Content="食費" Grid.Row="0" Grid.Column="0" Margin="5"/>
-        <Button x:Name="button_fashion" Content="衣類・ファッション" Grid.Row="0" Grid.Column="1" Margin="5"/>
-        <Button x:Name="button_photothermalfee" Content="光熱費" Grid.Row="0" Grid.Column="2" Margin="5"/>
+        <ToggleButton x:Name="tbutton_foodex" Content="食費" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <ToggleButton x:Name="tbutton_fashion" Content="衣類・ファッション" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        <ToggleButton x:Name="tbutton_photothermalfee" Content="光熱費" Grid.Row="0" Grid.Column="2" Margin="5"/>
 
-        <Button x:Name="button_travellingex" Content="交通費" Grid.Row="1" Grid.Column="0" Margin="5"/>
-        <Button x:Name="button_communicationscost" Content="通信費" Grid.Row="1" Grid.Column="1" Margin="5"/>
-        <Button x:Name="button_insurance" Content="保険" Grid.Row="1" Grid.Column="2" Margin="5"/>
+        <ToggleButton x:Name="tbutton_travellingex" Content="交通費" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <ToggleButton x:Name="tbutton_communicationscost" Content="通信費" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <ToggleButton x:Name="tbutton_insurance" Content="保険" Grid.Row="1" Grid.Column="2" Margin="5"/>
 
-        <Button x:Name="button_book" Content="本・雑誌" Grid.Row="2" Grid.Column="0" Margin="5"/>
-        <Button x:Name="button_rent" Content="家賃" Grid.Row="2" Grid.Column="1" Margin="5"/>
-        <Button x:Name="button_everydayitem" Content="日用品" Grid.Row="2" Grid.Column="2" Margin="5"/>
+        <ToggleButton x:Name="tbutton_book" Content="本・雑誌" Grid.Row="2" Grid.Column="0" Margin="5"/>
+        <ToggleButton x:Name="tbutton_rent" Content="家賃" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <ToggleButton x:Name="tbutton_everydayitem" Content="日用品" Grid.Row="2" Grid.Column="2" Margin="5"/>
 
-        <Button x:Name="button_medicalex" Content="医療品・医療費" Grid.Row="3" Grid.Column="0" Margin="5" RenderTransformOrigin="0.135,0.896"/>
-        <Button x:Name="button_travelex" Content="旅費交通費" Grid.Row="3" Grid.Column="1" Margin="5"/>
-        <Button x:Name="button_phone" Content="携帯電話・インターネット" Grid.Row="3" Grid.Column="2" Margin="5"/>
+        <ToggleButton x:Name="tbutton_medicalex" Content="医療品・医療費" Grid.Row="3" Grid.Column="0" Margin="5" RenderTransformOrigin="0.135,0.896"/>
+        <ToggleButton x:Name="tbutton_travelex" Content="旅費交通費" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <ToggleButton x:Name="tbutton_phone" Content="携帯電話・インターネット" Grid.Row="3" Grid.Column="2" Margin="5"/>
 
-        <Label Content="金額" Grid.Row="5" Grid.Column="0" FontSize="30" Height="50" HorizontalAlignment="Left" Margin="5"/>
-        <TextBox x:Name="Text_money" Grid.Row="5" Grid.ColumnSpan="3" Height="60" Margin="80,10,10,10" FontSize="40"/>
+        <Label Content="金額" Grid.Row="4" Grid.Column="0" FontSize="30" Height="50" HorizontalAlignment="Left" Margin="5"/>
+        <TextBox x:Name="Text_money" Grid.Row="4" Grid.ColumnSpan="3" Margin="80,10,5,10" FontSize="40" TextChanged="Text_money_TextChanged"/>
+
+        <Label Content="個数" Grid.Row="5" Grid.Column="1" FontSize="30" Height="50" HorizontalAlignment="Right" Margin="5"/>
+        <TextBox x:Name="Text_num" Grid.Row="5" Grid.Column="2" Height="60" Width="100" HorizontalAlignment="Left" FontSize="40" Text="1"/>
+        <Button x:Name="button_numplus" Grid.Column="2" Grid.Row="5" Content="＋" FontSize="20" Height="30" Margin="100,5,5,36" Click="button_numplus_Click"/>
+        <Button x:Name="button_minus" Grid.Column="2" Grid.Row="5" Content="－" FontSize="20" Height="30" Margin="100,35,5,6" Click="button_minus_Click" IsEnabled="False"/>
+
+        <Button x:Name="button_registration" Grid.Column="1" Grid.Row="6" Content="登録" Margin="5" IsEnabled="False" Click="button_registration_Click"/>
+        <Button x:Name="button_delete" Grid.Column="2" Grid.Row="6" Content="削除" Margin="5"/>
+
         <ListBox Name="moneyList" Grid.Row="0" Grid.Column="3" Grid.RowSpan="7" Margin="5"/>
     </Grid>
 </Page>

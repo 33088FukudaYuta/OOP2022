@@ -13,7 +13,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="Blue">
-            <DatePicker Margin="5" FontSize="20"/>
+            <DatePicker x:Name="dp_day" Margin="5" FontSize="20"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
         </StackPanel>
