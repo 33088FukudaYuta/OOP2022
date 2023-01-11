@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CalendarSample"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="700"
       Title="Page2" Background="AliceBlue">
 
     <Grid>
@@ -25,80 +25,36 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="390"/>
         </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="食費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="衣類・ファッション：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="光熱費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="交通費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="通信費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="保険：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="本・雑誌：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="家賃：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="日用品：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="医療品・医療費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="10" Grid.Column="0" Content="旅費交通費：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="11" Grid.Column="0" Content="携帯電話・インターネット：" Margin="5" FontSize="13" HorizontalContentAlignment="Right"/>
 
-        <CheckBox x:Name="cb_foodex" Content="食費" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_fashion" Content="衣類・ファッション" Grid.Row="1" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_photothermalfee" Content="光熱費" Grid.Row="2" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-
-        <CheckBox x:Name="cb_travellingex" Content="交通費" Grid.Row="3" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_communicationscost" Content="通信費" Grid.Row="4" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_insurance" Content="保険" Grid.Row="5" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_book" Content="本・雑誌" Grid.Row="6" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_rent" Content="家賃" Grid.Row="7" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_everydayitem" Content="日用品" Grid.Row="8" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-
-        <CheckBox x:Name="cb_medicalex" Content="医療品・医療費" Grid.Row="9" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_travelex" Content="旅費交通費" Grid.Row="10" Grid.Column="0" Margin="5" FontSize="14">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-        <CheckBox x:Name="cb_phone" Content="携帯電話・インターネット" Grid.Row="11" Grid.Column="0" Margin="5" FontSize="11">
-            <CheckBox.LayoutTransform>
-                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-            </CheckBox.LayoutTransform>
-        </CheckBox>
-
-        <Label Grid.Row="0" Grid.Column="1" Content="合計金額" FontSize="20"/>
-        <TextBox x:Name="tb_total" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="90,5,5,5"/>
-
-        <ListBox x:Name="totalList" Grid.Row="1" Grid.RowSpan="12" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" />
-
+        <Label x:Name="lb_foodcost" Grid.Row="0" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_fashiocost" Grid.Row="1" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_utilitycost" Grid.Row="2" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_travelingcost" Grid.Row="3" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_comcost" Grid.Row="4" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_insurancecost" Grid.Row="5" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_bookcost" Grid.Row="6" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_housecost" Grid.Row="7" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_everyitemcost" Grid.Row="8" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_medicalcost" Grid.Row="9" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_travelcost" Grid.Row="10" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        <Label x:Name="lb_phonecost" Grid.Row="11" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+        
         <WindowsFormsHost Name="pieChart" Grid.Row="0" Grid.Column="3" Grid.RowSpan="12" Margin="5"/>
     </Grid>
 </Page>

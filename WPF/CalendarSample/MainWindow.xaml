@@ -5,22 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalendarSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="610" Width="780">
+        Title="MainWindow" Height="580" Width="760">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Background="Blue">
-            <DatePicker x:Name="dp_day" Margin="5" FontSize="20"/>
-        </StackPanel>
         <StackPanel Grid.Row="1">
         </StackPanel>
-        <Frame x:Name="frame" Grid.Row="1" NavigationUIVisibility="Hidden" Loaded="frame_Loaded"/>
+        <Frame x:Name="frame" Grid.Row="0" NavigationUIVisibility="Hidden" Loaded="frame_Loaded"/>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="4" Background="Blue">
-            <Button  Margin="5" Width="370" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="金額入力" Click="Button_Click" Tag="1"/>
-            <Button  Margin="5" Width="370" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="リスト" Click="Button_Click" Tag="2"/>
+            <Button  Margin="5" Width="360" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="金額入力" Click="Button_Click" Tag="1"/>
+            <Button  Margin="5" Width="360" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="レポート" Click="Button_Click" Tag="2"/>
         </StackPanel>
     </Grid>
 </Window>

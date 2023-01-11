@@ -15,12 +15,11 @@ using System.Windows.Shapes;
 
 namespace CalendarSample {
     /// <summary>
-    /// Page2.xaml の相互作用ロジック
+    /// Page3.xaml の相互作用ロジック
     /// </summary>
-    public partial class Page2 : Page {
-        public Page2() {
+    public partial class Page3 : Page {
+        public Page3() {
             InitializeComponent();
-            
         }
     }
 }

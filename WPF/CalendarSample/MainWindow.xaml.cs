@@ -39,6 +39,7 @@ namespace CalendarSample {
             Button bt = (Button)sender;
 
             navi.Navigate(uriList[int.Parse((string)bt.Tag)-1]);
+
         }
     }
 }

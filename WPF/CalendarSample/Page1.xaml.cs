@@ -22,10 +22,7 @@ namespace CalendarSample {
     public partial class Page1 : Page {
 
         int allsum; //すべてのカテゴリの合計金額
-        int countnumber; //個数
         int totalMoney; //入力した金額
-
-        int multisum; //個数と入力した金額を掛け算した合計
 
         int total_foodex = 0; //食費の合計金額
         int total_fashion = 0; //衣類・ファッションの合計金額
@@ -40,108 +37,196 @@ namespace CalendarSample {
         int total_travelex = 0; //旅費交通費の合計金額
         int total_phone = 0; //携帯電話・インターネットの合計金額
 
+        string categoryName;
 
         public Page1() {
             InitializeComponent();
+
         }
 
-        private void button_numplus_Click(object sender, RoutedEventArgs e) {
-            countnumber = int.Parse(Text_num.Text);
-            countnumber++;
-            Text_num.Text = countnumber.ToString();
-            Enable();
-        }
+        //登録ボタンを押したときの処理
+        private void button_registration_Click(object sender, RoutedEventArgs e) {
+            try {
+                totalMoney = int.Parse(Text_money.Text);
+                allsum += totalMoney;
+                CategorySum();
+                moneyList.Items.Insert(0, string.Format("{0}   {1}：{2:N0}円", dp_day.Text, categoryName, totalMoney));
 
-        private void button_minus_Click(object sender, RoutedEventArgs e) {
-            countnumber = int.Parse(Text_num.Text);
-            countnumber--;
-            Text_num.Text = countnumber.ToString();
-            Enable();
-        }
+                categoryName = null;
 
-        //ボタンのマスク処理
-        private void Enable() {
-            if(int.Parse(Text_num.Text) > 1) {
-                button_minus.IsEnabled = true;
-            } else {
-                button_minus.IsEnabled = false;
+                Text_money.Text = null;
+
+                button_registration.IsEnabled = false;
+            }
+            catch (OverflowException ex) {
+                MessageBox.Show(ex.Message);
+                Text_money.Text = null;
             }
         }
 
-        private void button_registration_Click(object sender, RoutedEventArgs e) {
-            totalMoney = int.Parse(Text_money.Text);
-            countnumber = int.Parse(Text_num.Text);
-
-            multisum = totalMoney * countnumber;
-
-            allsum += multisum; 
-            CategorySum(); 
-            moneyList.Items.Insert(0,multisum);
-
-            Text_money.Text = null;
-            Text_num.Text = "1";
-            Enable();
-            button_registration.IsEnabled = false;
+        private void Text_money_TextChanged(object sender, TextChangedEventArgs e) {
+            EnableCheck();
         }
 
-        private void Text_money_TextChanged(object sender, TextChangedEventArgs e) {
+        private void EnableCheck() {
             if (Text_money.Text != null) {
                 button_registration.IsEnabled = true;
-            } else if (Text_money.Text == null) {
+            }else if(Text_money.Text == null) {
                 button_registration.IsEnabled = false;
             }
         }
 
-        //カテゴリごとの合計金額を求める処理
+        //カテゴリごとの合計金額とカテゴリ名を求める処理
         private void CategorySum() {
             if(tbutton_foodex.IsChecked == true) {
-                total_foodex += multisum;
+                total_foodex += totalMoney;
                 tbutton_foodex.IsChecked = false;
+                categoryName = tbutton_foodex.Content.ToString();
 
             }else if (tbutton_fashion.IsChecked == true) {
-                total_fashion += multisum;
+                total_fashion += totalMoney;
                 tbutton_fashion.IsChecked = false;
+                categoryName = tbutton_fashion.Content.ToString();
 
             } else if(tbutton_photothermalfee.IsChecked == true) {
-                total_photothermalfee += multisum;
+                total_photothermalfee += totalMoney;
                 tbutton_photothermalfee.IsChecked = false;
+                categoryName = tbutton_photothermalfee.Content.ToString();
+
 
             } else if(tbutton_travellingex.IsChecked == true) {
-                total_travellingex += multisum;
+                total_travellingex += totalMoney;
                 tbutton_travellingex.IsChecked = false;
+                categoryName=tbutton_travellingex.Content.ToString();
 
             } else if(tbutton_communicationscost.IsChecked == true) {
-                total_communicationscost += multisum;
+                total_communicationscost += totalMoney;
                 tbutton_communicationscost.IsChecked = false;
+                categoryName = tbutton_communicationscost.Content.ToString();
 
             } else if(tbutton_insurance.IsChecked == true) {
-                total_insurance += multisum;
+                total_insurance += totalMoney;
                 tbutton_insurance.IsChecked = false;
+                categoryName = tbutton_insurance.Content.ToString();
 
             } else if(tbutton_book.IsChecked == true) {
-                total_book += multisum;
+                total_book += totalMoney;
                 tbutton_book.IsChecked = false;
+                categoryName = tbutton_book.Content.ToString();
 
             } else if(tbutton_rent.IsChecked == true) {
-                total_rent += multisum;
+                total_rent += totalMoney;
                 tbutton_rent.IsChecked = false;
+                categoryName = tbutton_rent.Content.ToString();
 
             } else if (tbutton_everydayitem.IsChecked == true) {
-                total_everydayitem += multisum;
+                total_everydayitem += totalMoney;
                 tbutton_everydayitem.IsChecked = false;
+                categoryName = tbutton_everydayitem.Content.ToString();
 
             } else if(tbutton_medicalex.IsChecked == true) {
-                total_medicalex += multisum;
+                total_medicalex += totalMoney;
                 tbutton_medicalex.IsChecked = false;
+                categoryName = tbutton_medicalex.Content.ToString();
 
             } else if(tbutton_travelex.IsChecked == true) {
-                total_travelex += multisum;
+                total_travelex += totalMoney;
                 tbutton_travelex.IsChecked = false;
+                categoryName = tbutton_travelex.Content.ToString();
 
             } else if(tbutton_phone.IsChecked == true) {
-                total_phone += multisum;
+                total_phone += totalMoney;
                 tbutton_phone.IsChecked = false;
+                categoryName = tbutton_phone.Content.ToString();
             }
         }
+
+        private void tbutton_foodex_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_fashion_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_foodex.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_photothermalfee_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_foodex.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_travellingex_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_foodex.IsChecked = false;
+        }
+
+        private void tbutton_communicationscost_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_foodex.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_insurance_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_foodex.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_book_Checked(object sender, RoutedEventArgs e) {
+            tbutton_foodex.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_rent_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_foodex.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_everydayitem_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_foodex.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_medicalex_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_foodex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_travelex_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_phone.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_foodex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void tbutton_phone_Checked(object sender, RoutedEventArgs e) {
+            tbutton_book.IsChecked = tbutton_communicationscost.IsChecked = tbutton_everydayitem.IsChecked = tbutton_fashion.IsChecked
+            = tbutton_insurance.IsChecked = tbutton_medicalex.IsChecked = tbutton_foodex.IsChecked = tbutton_photothermalfee.IsChecked
+            = tbutton_rent.IsChecked = tbutton_travelex.IsChecked = tbutton_travellingex.IsChecked = false;
+        }
+
+        private void dp_day_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            tbutton_book.IsEnabled = tbutton_communicationscost.IsEnabled = tbutton_everydayitem.IsEnabled = tbutton_fashion.IsEnabled
+            = tbutton_insurance.IsEnabled = tbutton_medicalex.IsEnabled = tbutton_foodex.IsEnabled = tbutton_photothermalfee.IsEnabled
+            = tbutton_rent.IsEnabled = tbutton_travelex.IsEnabled = tbutton_travellingex.IsEnabled = tbutton_phone.IsEnabled = true;
+
+            if(Text_money.Text == null) {
+                button_registration.IsEnabled = false;
+            }
+        }
+
+        //テキストボックスに数字のみ入力可能
+        private void Text_money_PreviewTextInput(object sender, TextCompositionEventArgs e) {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
+        }
+
     }
 }
