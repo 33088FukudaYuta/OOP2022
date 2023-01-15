@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CalendarSample {
     /// <summary>
@@ -21,27 +13,27 @@ namespace CalendarSample {
 
     public partial class Page1 : Page {
 
-        int allsum; //すべてのカテゴリの合計金額
+
+        public static int allsum; //すべてのカテゴリの合計金額
         int totalMoney; //入力した金額
 
-        int total_foodex = 0; //食費の合計金額
-        int total_fashion = 0; //衣類・ファッションの合計金額
-        int total_photothermalfee = 0; //光熱費の合計金額
-        int total_travellingex = 0; //交通費の合計金額
-        int total_communicationscost = 0; //通信費の合計金額
-        int total_insurance = 0; //保険の合計金額
-        int total_book = 0; //本・雑誌の合計金額
-        int total_rent = 0; //家賃の合計金額
-        int total_everydayitem = 0; //日用品の合計金額
-        int total_medicalex = 0; //医療品・医療費の合計金額
-        int total_travelex = 0; //旅費交通費の合計金額
-        int total_phone = 0; //携帯電話・インターネットの合計金額
+        public static int total_foodex = 0; //食費の合計金額
+        public static int total_fashion = 0; //衣類・ファッションの合計金額
+        public static int total_photothermalfee = 0; //光熱費の合計金額
+        public static int total_travellingex = 0; //交通費の合計金額
+        public static int total_communicationscost = 0; //通信費の合計金額
+        public static int total_insurance = 0; //保険の合計金額
+        public static int total_book = 0; //本・雑誌の合計金額
+        public static int total_rent = 0; //家賃の合計金額
+        public static int total_everydayitem = 0; //日用品の合計金額
+        public static int total_medicalex = 0; //医療品・医療費の合計金額
+        public static int total_travelex = 0; //旅費交通費の合計金額
+        public static int total_phone = 0; //携帯電話・インターネットの合計金額
 
         string categoryName;
 
         public Page1() {
             InitializeComponent();
-
         }
 
         //登録ボタンを押したときの処理
@@ -50,7 +42,10 @@ namespace CalendarSample {
                 totalMoney = int.Parse(Text_money.Text);
                 allsum += totalMoney;
                 CategorySum();
-                moneyList.Items.Insert(0, string.Format("{0}   {1}：{2:N0}円", dp_day.Text, categoryName, totalMoney));
+                dg_moneydata.Items.Insert(0, string.Format("{0}   {1}：{2:N0}円", dp_day.Text, categoryName, totalMoney));
+
+                
+                
 
                 categoryName = null;
 
@@ -227,6 +222,5 @@ namespace CalendarSample {
         private void Text_money_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
         }
-
     }
 }

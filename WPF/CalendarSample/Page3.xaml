@@ -5,10 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CalendarSample"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page3">
+      d:DesignHeight="450" d:DesignWidth="850"
+      Title="Page3" Background="Beige" Loaded="page3_Loaded">
 
     <Grid>
+        <StackPanel>
+            <DataGrid ItemsSource="{Binding DataTableView}"
+                      SelectedItem="{Binding SelectedRow}"
+                      IsReadOnly="False"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="日付" Margin="10" FontSize="20"/>
+                <DatePicker x:Name="dp_day" Width="150" Margin="10" FontSize="15" IsDropDownOpen="True" SelectedDateChanged="dp_day_SelectedDateChanged"/>
+                <TextBlock Text="金額:" Margin="10" FontSize="20"/>
+                <TextBox x:Name="tb_Money" Width="150" Height="30" Text="{Binding InputMoney}" FontSize="15"/>
+                <TextBlock Text="カテゴリ:" Margin="10" FontSize="20"/>
+                <ComboBox x:Name="cb_CategoryName" Width="150" Margin="10" Text="{Binding InputCategoryName}"/>
+                <Button Content="登録" Width="70" Margin="10" Command="{Binding AddRowCommand}" Click="Button_Click"/>
+            </StackPanel>
+
+        </StackPanel>
         
     </Grid>
 </Page>

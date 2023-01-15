@@ -24,11 +24,13 @@ namespace CalendarSample {
             InitializeComponent();
 
             navi = this.frame.NavigationService;
+            
         }
 
         private List<Uri> uriList = new List<Uri>() {
             new Uri("Page1.xaml",UriKind.Relative),
             new Uri("Page2.xaml",UriKind.Relative),
+            new Uri("Page3.xaml",UriKind.Relative),
         };
 
         private void frame_Loaded(object sender, RoutedEventArgs e) {

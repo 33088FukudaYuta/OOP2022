@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalendarSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="760">
+        Title="MainWindow" Height="580" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -16,7 +16,8 @@
         <Frame x:Name="frame" Grid.Row="0" NavigationUIVisibility="Hidden" Loaded="frame_Loaded"/>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="4" Background="Blue">
             <Button  Margin="5" Width="360" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="金額入力" Click="Button_Click" Tag="1"/>
-            <Button  Margin="5" Width="360" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="レポート" Click="Button_Click" Tag="2"/>
+            <Button  Margin="5" Width="260" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="レポート" Click="Button_Click" Tag="2"/>
+            <Button  Margin="5" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Page3" Click="Button_Click" Tag="3"/>
         </StackPanel>
     </Grid>
 </Window>

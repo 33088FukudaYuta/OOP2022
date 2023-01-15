@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CalendarSample"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
-      Title="Page2" Background="AliceBlue">
+      Title="Page2" Background="AliceBlue" Loaded="page_Loaded" ContextMenuClosing="page_closing" ContextMenuOpening="page_open">
 
     <Grid>
         <Grid.RowDefinitions>
