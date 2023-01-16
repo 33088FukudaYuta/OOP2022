@@ -37,7 +37,7 @@ namespace CalendarSample {
         //private string inputDay;
         private string inputDay;
         public string InputDay {
-            get => Page3.date;
+            get => Page3.choiceDay;
             set {
                 inputDay = value;
                 OnPropertyChanged(nameof(InputDay));
@@ -73,7 +73,7 @@ namespace CalendarSample {
             dataTable.Rows.Clear();
             dataTable.Columns.Add("年月日");
             dataTable.Columns.Add("金額");
-            dataTable.Columns.Add("カテゴリ");
+            dataTable.Columns.Add("内訳");
             NotifyTableUpdate();
         }
 

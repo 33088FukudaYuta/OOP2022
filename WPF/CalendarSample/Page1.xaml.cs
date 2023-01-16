@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace CalendarSample {
     /// <summary>
@@ -12,7 +20,6 @@ namespace CalendarSample {
     ///
 
     public partial class Page1 : Page {
-
 
         public static int allsum; //すべてのカテゴリの合計金額
         int totalMoney; //入力した金額
@@ -30,10 +37,12 @@ namespace CalendarSample {
         public static int total_travelex = 0; //旅費交通費の合計金額
         public static int total_phone = 0; //携帯電話・インターネットの合計金額
 
+
         string categoryName;
 
         public Page1() {
             InitializeComponent();
+
         }
 
         //登録ボタンを押したときの処理
@@ -43,9 +52,6 @@ namespace CalendarSample {
                 allsum += totalMoney;
                 CategorySum();
                 dg_moneydata.Items.Insert(0, string.Format("{0}   {1}：{2:N0}円", dp_day.Text, categoryName, totalMoney));
-
-                
-                
 
                 categoryName = null;
 
@@ -222,5 +228,6 @@ namespace CalendarSample {
         private void Text_money_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
         }
+
     }
 }
