@@ -19,8 +19,9 @@ namespace CalendarSample {
     /// </summary>
     public partial class Page3 : Page {
 
-        public static string choiceDay;//選択した日付を格納
-        int total_Money;//入力した金額格納
+        public static string choiceDay;//選択した年月日を格納
+        public static int total_Money;//入力した金額格納
+        public static string categoryName;//入力したカテゴリ名格納
 
         int foodcost = 0; //食費の合計金額
         int fashioncost = 0; //衣類・ファッションの合計金額
@@ -33,13 +34,21 @@ namespace CalendarSample {
         int everydayitemcost = 0; //日用品の合計金額
         int medicalcost = 0; //医療品・医療費の合計金額
         int travelcost = 0; //旅費交通費の合計金額
-        int phonecost = 0; //携帯電話・インターネットの合計金額
+        int incidentalscost = 0; //雑費の合計金額
 
 
 
         public Page3() {
             InitializeComponent();
-            DataContext = new DataTableViewModel();
+            /*DataTableViewModel viewModel = new DataTableViewModel();
+            DataContext = viewModel;
+            //DataContext = new DataTableViewModel();*/
+
+            ChartViewModel cvm = new ChartViewModel();
+            DataContext = cvm;
+
+            //Chart関連
+            Chart1v.Child = cvm.chart1;
         }
 
         private void page3_Loaded(object sender, RoutedEventArgs e) {
@@ -71,17 +80,17 @@ namespace CalendarSample {
         //ComboBoxにカテゴリー名をセット
         private void SetCategoryName() {
             cb_CategoryName.Items.Add("食費");
-            cb_CategoryName.Items.Add("衣類・ファッション");
-            cb_CategoryName.Items.Add("光熱費");
+            cb_CategoryName.Items.Add("衣服費");
+            cb_CategoryName.Items.Add("水道光熱費");
             cb_CategoryName.Items.Add("交通費");
             cb_CategoryName.Items.Add("通信費");
-            cb_CategoryName.Items.Add("保険");
+            cb_CategoryName.Items.Add("保険料");
             cb_CategoryName.Items.Add("本・雑誌");
-            cb_CategoryName.Items.Add("家賃");
+            cb_CategoryName.Items.Add("住宅費");
             cb_CategoryName.Items.Add("日用品");
-            cb_CategoryName.Items.Add("医療品・医療費");
+            cb_CategoryName.Items.Add("医療費");
             cb_CategoryName.Items.Add("旅費交通費");
-            cb_CategoryName.Items.Add("携帯・インターネット");
+            cb_CategoryName.Items.Add("雑費");
         }
 
 
@@ -146,8 +155,8 @@ namespace CalendarSample {
                     lb_travelcost.Content = string.Format("{0:N0}円", travelcost);
                     break;
                 case 11:
-                    phonecost += total_Money;
-                    lb_phonecost.Content = string.Format("{0:N0}円", phonecost);
+                    incidentalscost += total_Money;
+                    lb_incidentalscost.Content = string.Format("{0:N0}円", incidentalscost);
                     break;
             }
         }
