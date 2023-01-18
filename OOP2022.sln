@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32228.343
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter02", "Chapter02", "{60ED3AC5-C01D-413E-9BF7-3D9C06108496}"
 EndProject
@@ -139,7 +139,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Section01", "Chapter14\Sect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "Chapter14\WeatherApp\WeatherApp.csproj", "{D4C6B206-3505-4598-A18E-B07FD804C2AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarSample", "WPF\CalendarSample\CalendarSample.csproj", "{7532A7CF-12E2-4C93-8FF8-C6C43BA4DC61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseholeAccountBookSample", "WPF\CalendarSample\HouseholeAccountBookSample.csproj", "{7532A7CF-12E2-4C93-8FF8-C6C43BA4DC61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
