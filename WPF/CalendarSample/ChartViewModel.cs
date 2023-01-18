@@ -1,9 +1,5 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Input;
 
@@ -72,7 +68,7 @@ namespace CalendarSample {
         //チャート要素追加するメソッド
         public void AddComponent() {
             //グラフ要素を追加する
-            series1.Points.AddXY(Page3.choiceDay, Page3.total_Money);
+            series1.Points.AddXY(MainWindow.choiceDay, MainWindow.total_Money);
             
             //series1.Points.AddXY(cnt, rdm.NextDouble());
 

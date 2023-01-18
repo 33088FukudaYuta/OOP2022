@@ -5,19 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalendarSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="850">
+        Title="MainWindow" Height="580" Width="860" Loaded="Window_Loaded">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="140"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1">
-        </StackPanel>
-        <Frame x:Name="frame" Grid.Row="0" NavigationUIVisibility="Hidden" Loaded="frame_Loaded"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="4" Background="Blue">
-            <Button  Margin="5" Width="360" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="金額入力" Click="Button_Click" Tag="1"/>
-            <Button  Margin="5" Width="260" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="レポート" Click="Button_Click" Tag="2"/>
-            <Button  Margin="5" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Page3" Click="Button_Click" Tag="3"/>
-        </StackPanel>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding DataTableView}"
+                      SelectedItem="{Binding SelectedRow}"
+                      IsReadOnly="False" Grid.Column="2" Margin="10,10,10,10" Grid.RowSpan="4" FontSize="14"/>
+
+        <TextBlock Text="日付" Margin="40,10,0,10" FontSize="20" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"/>
+        <DatePicker x:Name="dp_day" Width="160" Height="30" Margin="2,10,0,10" Grid.Row="0" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" IsDropDownOpen="True" SelectedDateChanged="dp_day_SelectedDateChanged"/>
+
+        <TextBlock Text="金額" Margin="40,10,0,10" FontSize="20" Grid.Row="2" HorizontalAlignment="Left"/>
+        <TextBox x:Name="tb_Money" Width="160" Height="30" Grid.Row="2" Grid.Column="1" Margin="2,10,0,10" HorizontalAlignment="Left" Text="{Binding InputMoney}" FontSize="20" TextChanged="tb_Money_TextChanged" PreviewTextInput="tb_Money_PreviewTextInput"/>
+
+        <TextBlock Text="カテゴリ" Margin="21,10,0,10" FontSize="20" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="cb_CategoryName" Width="160" Height="30" Grid.Row="1" Grid.Column="1" Margin="2,10,0,10" FontSize="15" HorizontalAlignment="Left" Text="{Binding InputCategoryName}"/>
+
+        <Button x:Name="bt_registrarion" Content="登録" Margin="10,10,15,10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddRowCommand}" Click="Button_Click" IsEnabled="False"/>
+        <Button Grid.Row="4" Grid.Column="0" Margin="5,5,5,5" Content="表示" Command="{Binding AddBtn_Pushed}"/>
+        <Button Grid.Row="4" Grid.Column="1" Margin="5,5,0,5" Width="80" HorizontalAlignment="Left" Content="クリア" Command="{Binding ClearBtn_Pushed}"/>
+        <Button x:Name="bt_csv" Grid.Row="4" Grid.Column="1" Content="CSV出力" Width="80" Margin="90,5,10,5" Click="ExportCSV"/>
+
+        <WindowsFormsHost Name="Chart1v" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10"/>
+        <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="6" Margin="5,5,5,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="食費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="衣服費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="水道光熱費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="交通費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="通信費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="保険料：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="本・雑誌：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="7" Grid.Column="0" Content="住宅費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="8" Grid.Column="0" Content="日用品：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="9" Grid.Column="0" Content="医療費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="10" Grid.Column="0" Content="旅費交通費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="11" Grid.Column="0" Content="雑費：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="12" Grid.Column="0" Content="合計金額：" Margin="2" FontSize="15" HorizontalContentAlignment="Right"/>
+
+
+            <Label x:Name="lb_foodcost" Grid.Row="0" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_fashiocost" Grid.Row="1" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_utilitycost" Grid.Row="2" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_travelingcost" Grid.Row="3" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_comcost" Grid.Row="4" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_insurancecost" Grid.Row="5" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_bookcost" Grid.Row="6" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_housecost" Grid.Row="7" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_everyitemcost" Grid.Row="8" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_medicalcost" Grid.Row="9" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_travelcost" Grid.Row="10" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_incidentalscost" Grid.Row="11" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+            <Label x:Name="lb_AllCost" Grid.Row="12" Grid.Column="1" Content="0円" HorizontalAlignment="Left" Margin="2" FontSize="15"/>
+
+        </Grid>
     </Grid>
 </Window>
