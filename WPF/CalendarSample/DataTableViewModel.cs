@@ -18,7 +18,7 @@ namespace CalendarSample {
 
         private readonly DataTable dataTable = new DataTable();
 
-        public ICommand AddRowCommand { get; }
+        public ICommand AddRowCommand { get;}
 
         private DataRowView selectedRow;
 

@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace CalendarSample {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window {
+
+        List<Date> dateList = new List<Date>();
+
+        public static int num = 0;
 
         public static string choiceDay;//選択した年月日を格納
         public static int total_Money;//入力した金額格納
@@ -60,7 +69,15 @@ namespace CalendarSample {
 
             total_Money = int.Parse(tb_Money.Text);
             allcost += total_Money;
-            lb_AllCost.Content = string.Format("{0:N0}円",allcost);
+            lb_AllCost.Content = string.Format("{0:N0}円", allcost);
+
+            Date newDate = new Date {
+                day = choiceDay,
+                money = total_Money,
+                categoryName = cb_CategoryName.Text
+            };
+
+            dateList.Add(newDate);
 
             CategoryMoney(index);
 
@@ -155,7 +172,27 @@ namespace CalendarSample {
             }
         }
 
-        private void ExportCSV(object sender, RoutedEventArgs e) {        
+        private void ExportCSV(object sender, RoutedEventArgs e) {
+            SaveFileDialog dlg = new SaveFileDialog();
+
+            // デフォルトファイル名
+            dlg.FileName = "cat.csv";
+
+            // デフォルトディレクトリ
+            dlg.InitialDirectory = @"c:\";
+
+            // ファイルのフィルタ
+            dlg.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+
+            // ファイルの種類
+            dlg.FilterIndex = 0;
         }
     }
+
+    public class Date {
+        public string day { get; set; }
+        public int money { get; set; }
+        public string categoryName { get; set; }
+    }
 }
+

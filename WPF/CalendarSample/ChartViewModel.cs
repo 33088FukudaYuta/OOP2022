@@ -30,6 +30,7 @@ namespace CalendarSample {
 
             //コマンド
             AddBtn_Pushed = new RelayCommand(Add_cmd);
+            
             ClearBtn_Pushed = new RelayCommand(ChartClear_cmd);
 
             //他(要素生成用)
@@ -55,7 +56,7 @@ namespace CalendarSample {
         }
 
         //要素追加コマンド
-        private void Add_cmd() {
+        public void Add_cmd() {
             AddComponent();
         }
 
@@ -70,8 +71,6 @@ namespace CalendarSample {
             //グラフ要素を追加する
             series1.Points.AddXY(MainWindow.choiceDay, MainWindow.total_Money);
             
-            //series1.Points.AddXY(cnt, rdm.NextDouble());
-
             //x軸要素を増やす
             cnt++;
         }
