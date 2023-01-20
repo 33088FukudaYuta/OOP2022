@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalendarSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="860" Loaded="Window_Loaded">
+        Title="家計簿アプリ" Height="580" Width="860" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90"/>
@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="dataGrid" ItemsSource="{Binding DataTableView}"
                       SelectedItem="{Binding SelectedRow}"
-                      IsReadOnly="False" Grid.Column="2" Margin="10,10,10,10" Grid.RowSpan="4" FontSize="14"/>
+                      IsReadOnly="False" Grid.Column="2" Margin="10,10,10,10" Grid.RowSpan="5" FontSize="15"/>
 
         <TextBlock Text="日付" Margin="40,10,0,10" FontSize="20" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"/>
         <DatePicker x:Name="dp_day" Width="160" Height="30" Margin="2,10,0,10" Grid.Row="0" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" IsDropDownOpen="True" SelectedDateChanged="dp_day_SelectedDateChanged"/>
@@ -35,10 +35,11 @@
         <TextBlock Text="カテゴリ" Margin="21,10,0,10" FontSize="20" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"/>
         <ComboBox x:Name="cb_CategoryName" Width="160" Height="30" Grid.Row="1" Grid.Column="1" Margin="2,10,0,10" FontSize="15" HorizontalAlignment="Left" Text="{Binding InputCategoryName}"/>
 
-        <Button x:Name="bt_registrarion" Content="登録" Margin="10,10,15,10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddRowCommand}" Click="Button_Click" IsEnabled="False"/>
-        <Button Grid.Row="4" Grid.Column="0" Margin="5,5,5,5" Content="表示" Command="{Binding AddBtn_Pushed}"/>
-        <Button Grid.Row="4" Grid.Column="1" Margin="5,5,0,5" Width="80" HorizontalAlignment="Left" Content="クリア" Command="{Binding ClearBtn_Pushed}"/>
-        <Button x:Name="bt_csv" Grid.Row="4" Grid.Column="1" Content="CSV出力" Width="80" Margin="90,5,10,5" Click="ExportCSV"/>
+        <Button x:Name="bt_registrarion" Content="登録" Margin="10,10,95,10" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddRowCommand}" Click="Button_Click" IsEnabled="False"/>
+        <Button Grid.Row="3" Grid.Column="1" Margin="10" Width="80" HorizontalAlignment="Right" Content="グラフクリア" Command="{Binding ClearBtn_Pushed}"/>
+
+        <Button x:Name="bt_csvOutput" Grid.Row="4" Grid.Column="0" Content="CSV出力" Height="30" Margin="10,0,0,20" Click="ExportCSV" IsEnabled="False"/>
+        <Button x:Name="bt_csvInput" Grid.Row="4" Grid.Column="1" Content="CSV読込" Height="30" Margin="10,0,95,20" IsEnabled="False"/>
 
         <WindowsFormsHost Name="Chart1v" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10"/>
         <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="6" Margin="5,5,5,10">

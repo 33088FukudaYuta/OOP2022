@@ -1,13 +1,10 @@
-﻿using GalaSoft.MvvmLight.Command;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace CalendarSample {
     /// <summary>
@@ -40,15 +37,12 @@ namespace CalendarSample {
 
         public MainWindow() {
             InitializeComponent();
-            //DataTableViewModel viewModel = new DataTableViewModel();
-            //DataContext = viewModel;
-            //DataContext = new DataTableViewModel();
 
-            ChartViewModel cvm = new ChartViewModel();
-            DataContext = cvm;
+            ViewModel view = new ViewModel();
+            DataContext = view;
 
             //Chart関連
-            Chart1v.Child = cvm.chart1;
+            Chart1v.Child = view.chart1;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -82,8 +76,8 @@ namespace CalendarSample {
             CategoryMoney(index);
 
             tb_Money.Text = null;
-            cb_CategoryName.IsDropDownOpen = true;
             bt_registrarion.IsEnabled = false;
+            bt_csvOutput.IsEnabled = true;
         }
 
         private void tb_Money_TextChanged(object sender, TextChangedEventArgs e) {
@@ -173,19 +167,31 @@ namespace CalendarSample {
         }
 
         private void ExportCSV(object sender, RoutedEventArgs e) {
-            SaveFileDialog dlg = new SaveFileDialog();
+            //ファイル名
+            string filename = "";
 
-            // デフォルトファイル名
-            dlg.FileName = "cat.csv";
+            //ファイル名に日付を活用
+            DateTime dt = DateTime.Now;
+            filename = dt.ToString("yyyyMMdd_");
 
-            // デフォルトディレクトリ
-            dlg.InitialDirectory = @"c:\";
+            //保存ダイアログの生成
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.Title = "保存先を指定してください";
 
-            // ファイルのフィルタ
-            dlg.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+            //保存先を設定(デスクトップ)
+            dlg.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            dlg.Filter = "CSVファイル(*.csv)|*.csv";
+            dlg.FileName = filename;
 
-            // ファイルの種類
-            dlg.FilterIndex = 0;
+            if(dlg.ShowDialog() == true) {
+                StreamWriter sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8);
+
+                for(int i=0;i < dataGrid.Items.Count; i++) {
+                    sw.Write(dataGrid.Columns);
+                    sw.Write(",");
+                }
+                sw.Close();
+            }
         }
     }
 
