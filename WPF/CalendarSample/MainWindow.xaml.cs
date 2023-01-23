@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +16,6 @@ namespace CalendarSample {
     public partial class MainWindow : Window {
 
         List<Date> dateList = new List<Date>();
-
-        public static int num = 0;
 
         public static string choiceDay;//選択した年月日を格納
         public static int total_Money;//入力した金額格納
@@ -67,7 +68,7 @@ namespace CalendarSample {
 
             Date newDate = new Date {
                 day = choiceDay,
-                money = total_Money,
+                money = tb_Money.Text,
                 categoryName = cb_CategoryName.Text
             };
 
@@ -83,6 +84,7 @@ namespace CalendarSample {
         private void tb_Money_TextChanged(object sender, TextChangedEventArgs e) {
             EnableCheck();
         }
+
         //ComboBoxにカテゴリー名をセット
         private void SetCategoryName() {
             cb_CategoryName.Items.Add("食費");
@@ -167,38 +169,64 @@ namespace CalendarSample {
         }
 
         private void ExportCSV(object sender, RoutedEventArgs e) {
+
+            //ファイル保存ダイアログ
+            SaveFileDialog dlg = new SaveFileDialog();
+
             //ファイル名
-            string filename = "";
+            string filename;
 
             //ファイル名に日付を活用
             DateTime dt = DateTime.Now;
             filename = dt.ToString("yyyyMMdd_");
 
-            //保存ダイアログの生成
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.Title = "保存先を指定してください";
-
-            //保存先を設定(デスクトップ)
-            dlg.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            dlg.Filter = "CSVファイル(*.csv)|*.csv";
+            //デフォルトファイル名
             dlg.FileName = filename;
 
-            if(dlg.ShowDialog() == true) {
-                StreamWriter sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8);
+            //保存先設定
+            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
-                for(int i=0;i < dataGrid.Items.Count; i++) {
-                    sw.Write(dataGrid.Columns);
-                    sw.Write(",");
+            // ファイルのフィルタ
+            dlg.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+
+            // ファイルの種類
+            dlg.FilterIndex = 0;
+
+            if (dlg.ShowDialog() == true) {
+                List<Date> list = dateList;
+                string delmiter = ",";
+                StringBuilder sb = new StringBuilder();
+                Date lastData = list.Last();
+                foreach (Date date in list) {
+                    sb.Append(date.day).Append(delmiter);
+                    sb.Append(date.money).Append(delmiter);
+                    sb.Append(date.categoryName).Append(delmiter);
+                    if (!date.Equals(lastData)) {
+                        sb.Append(Environment.NewLine);
+                    }
                 }
+
+                Stream st = dlg.OpenFile();
+                StreamWriter sw = new StreamWriter(st, Encoding.GetEncoding("UTF-8"));
+
+                sw.Write(sb.ToString());
                 sw.Close();
+                st.Close();
+                MessageBox.Show("CSVファイルを出力しました");
+            } else {
+                MessageBox.Show("キャンセルされました");
             }
         }
     }
-
-    public class Date {
-        public string day { get; set; }
-        public int money { get; set; }
-        public string categoryName { get; set; }
-    }
 }
+
+
+public class Date {
+    public string day { get; set; }
+    public string money { get; set; }
+    public string categoryName { get; set; }
+}
+
+
+
 
